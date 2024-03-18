@@ -125,7 +125,7 @@ router.delete("/:id", verifyAdmin, async (ctx) => {
   try {
     const deletedHotel = await Hotel.findOneAndDelete(ctx.params.id);
     ctx.status = 200;
-    ctx.body = { message: "Successfully deleted hotel", deletedHotel };
+    ctx.body = { message: "successfully deleted hotel", deletedHotel };
   } catch (error) {
     ctx.throw(400, error);
   }
