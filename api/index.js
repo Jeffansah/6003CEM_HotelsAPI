@@ -7,6 +7,7 @@ import cors from "@koa/cors";
 import bodyParser from "koa-bodyparser";
 import usersRoute from "./routes/usersRoute.js";
 import hotelsRoute from "./routes/hotelsRoute.js";
+import roomsRoute from "./routes/roomsRoute.js";
 
 // Load environment variables
 dotenv.config();
@@ -26,6 +27,7 @@ app.use(bodyParser());
 router.use("/api/auth", authRoute.routes());
 router.use("/api/users", usersRoute.routes());
 router.use("/api/hotels", hotelsRoute.routes());
+router.use("/api/rooms", roomsRoute.routes());
 
 app.use(router.routes()).use(router.allowedMethods());
 
