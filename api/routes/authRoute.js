@@ -66,7 +66,7 @@ router.post("/login", async (ctx) => {
     const { password, isAdmin, ...userDetails } = foundUser.toObject();
 
     ctx.status = 200;
-    ctx.body = { message: "Successfully signed in!", userDetails, isAdmin };
+    ctx.body = { message: "Successfully signed in!", userDetails };
   } catch (error) {
     ctx.throw(400, error.message);
   }
