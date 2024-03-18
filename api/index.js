@@ -31,6 +31,20 @@ router.use("/api/rooms", roomsRoute.routes());
 
 app.use(router.routes()).use(router.allowedMethods());
 
+// Error handling middleware
+app.use(async (ctx, next) => {
+  try {
+    await next();
+  } catch (err) {
+    ctx.status = err.statusCode || err.status || 500;
+    ctx.body = {
+      success: false,
+      message: err.message,
+      stack: err.stack,
+    };
+  }
+});
+
 // Database connection and server start
 connectToDatabase().then(() => {
   app.listen(port, () => {
