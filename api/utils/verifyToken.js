@@ -7,7 +7,7 @@ dotenv.config();
 export const verifyToken = async (ctx, next) => {
   const token = ctx.cookies.get("access_token");
   if (!token) {
-    ctx.throw(401, "You are unauthorized to perform this operation");
+    ctx.throw(401, "Token not found");
   } else {
     try {
       const user = jwt.verify(token, process.env.JWT_KEY);
@@ -30,7 +30,7 @@ export const verifyUser = async (ctx, next) => {
   });
 };
 
-// Verify Admin Statuss
+// Verify Admin Status
 export const verifyAdmin = async (ctx, next) => {
   await verifyToken(ctx, async () => {
     if (ctx.state.user.isAdmin) {
