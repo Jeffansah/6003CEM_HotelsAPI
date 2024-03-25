@@ -79,4 +79,8 @@
   .navlink {
     @apply text-sm text-white border-b-2 border-b-white pb-1;
   }
+
+  .booking-btn {
+    @apply rounded-none bg-transparent border border-tertiary font-heading text-lg font-light p-6 hover:bg-transparent focus:bg-transparent;
+  }
 }

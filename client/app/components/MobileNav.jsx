@@ -12,16 +12,16 @@ const MobileNav = () => {
       <Logo />
       <MenuIcon className="text-white w-7 h-7" onClick={() => setOpen(true)} />
       <div
-        className={`p-7 fixed inset-0 w-screen h-screen overflow-hidden bg-home ${
+        className={`p-7 fixed inset-0 w-screen h-screen overflow-hidden bg-home z-10 ${
           open ? "flex" : "hidden"
         } `}
       >
         <div className="absolute inset-0 w-full h-full bg-black/40 z-3" />
         <XIcon
-          className={`w-8 h-8 text-white inset-0 z-3 relative`}
+          className={`w-8 h-8 text-white inset-0 relative z-5`}
           onClick={() => setOpen(false)}
         />
-        <div className="flex flex-col gap-8 text-white relative z-3 justify-center text-5xl">
+        <div className="flex flex-col gap-8 text-white relative justify-center z-5 text-5xl">
           <button className="font-heading">
             <p className="text-start">Login</p>
           </button>
