@@ -6,20 +6,14 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { addDays, format } from "date-fns";
-import {
-  Calendar as CalendarIcon,
-  ChevronDownIcon,
-  CirclePlusIcon,
-  MinusIcon,
-  PlusIcon,
-} from "lucide-react";
+import { Calendar as CalendarIcon, MinusIcon, PlusIcon } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
 import { useState } from "react";
 import { useBookingStore } from "@/store/store";
 import { destinations } from "@/data/destinations";
 import DestinationCard from "./DestinationCard";
 
-const Booking = () => {
+const MobileBooking = () => {
   const storeDate = useBookingStore((state) => state.booking.date);
   const setStoreDate = useBookingStore((state) => state.setDate);
 
@@ -47,10 +41,10 @@ const Booking = () => {
   };
 
   return (
-    <div className="absolute max-md:hidden flex justify-center items-center gap-10 bottom-[-50px] left-1/2 translate-x-[-50%] p-6 bg-theme">
+    <div className="flex flex-col gap-6 mt-4">
       <Popover>
-        <PopoverTrigger asChild className="relative">
-          <Button className="rounded-none bg-transparent border border-tertiary font-heading text-lg font-light p-6 hover:bg-transparent focus:bg-transparent">
+        <PopoverTrigger asChild>
+          <Button className="w-full rounded-none bg-transparent border border-tertiary font-heading text-lg font-light p-6 hover:bg-transparent focus:bg-transparent">
             Pick a location
           </Button>
         </PopoverTrigger>
@@ -67,7 +61,7 @@ const Booking = () => {
       </Popover>
       <Popover>
         <PopoverTrigger asChild>
-          <Button className="rounded-none bg-transparent border border-tertiary font-heading text-lg font-light p-6 hover:bg-transparent focus:bg-transparent">
+          <Button className="w-full rounded-none bg-transparent border border-tertiary font-heading text-lg font-light p-6 hover:bg-transparent focus:bg-transparent">
             <CalendarIcon className="mr-2 h-4 w-4" />
             {date?.from ? (
               date.to ? (
@@ -84,9 +78,9 @@ const Booking = () => {
           </Button>
         </PopoverTrigger>
         <PopoverContent
-          className="w-[580px] rounded-none border border-tertiary"
-          align="start"
-          sideOffset={4}
+          className="w-[90vw] relative rounded-none border border-tertiary"
+          align="center"
+          mobilebooking={true}
         >
           <Calendar
             className="w-[500px]"
@@ -101,7 +95,7 @@ const Booking = () => {
       </Popover>
       <Popover>
         <PopoverTrigger asChild>
-          <Button className="rounded-none bg-transparent border border-tertiary font-heading text-lg font-light p-6 hover:bg-transparent focus:bg-transparent">
+          <Button className="w-full rounded-none bg-transparent border border-tertiary font-heading text-lg font-light p-6 hover:bg-transparent focus:bg-transparent">
             Guests{" "}
             <span className="ml-6 text-xs font-body">
               {storeOptions.adult} Adult{storeOptions.adult > 1 ? "s" : ""}{" "}
@@ -202,7 +196,7 @@ const Booking = () => {
       </Popover>
       <Button
         onClick={handleSubmit}
-        className="bg-tertiary hover:bg-tertiarydark text-white rounded-none py-6 px-10 font-heading text-lg font-light"
+        className="bg-tertiary w-full hover:bg-tertiarydark text-white rounded-none py-6 font-heading text-lg font-light"
       >
         Check Availability
       </Button>
@@ -210,4 +204,4 @@ const Booking = () => {
   );
 };
 
-export default Booking;
+export default MobileBooking;
