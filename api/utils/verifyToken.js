@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
+import User from "../models/usersModel.js";
 
 dotenv.config();
 
@@ -17,6 +18,24 @@ export const verifyToken = async (ctx, next) => {
       ctx.throw(403, "Token not valid");
     }
   }
+};
+
+// Verify User Session
+export const verifySession = async (ctx, next) => {
+  await verifyToken(ctx, async () => {
+    // const userId = ctx.state.user._id;
+    // const foundUser = await User.findById(userId);
+    // console.log(foundUser);
+
+    // if (foundUser) {
+    //   ctx.state.isAuthenticated = true;
+    //   await next();
+    // } else {
+    //   ctx.throw(401, "User not found");
+    // }
+    ctx.state.isAuthenticated = true;
+    await next();
+  });
 };
 
 // Verify User Status

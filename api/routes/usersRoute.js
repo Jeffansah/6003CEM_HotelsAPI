@@ -16,10 +16,11 @@ router.get("/", verifyAdmin, async (ctx, next) => {
 });
 
 // Get a single user
-router.get("/:id", verifyUser, async (ctx, next) => {
+router.get("/:id", async (ctx, next) => {
   try {
     const foundUser = await User.findById(ctx.params.id);
     ctx.status = 200;
+    console.log(ctx.cookies.get("access_token"));
     ctx.body = { message: "Found user!", foundUser };
   } catch (error) {
     error.message = "Cannot find user";
@@ -48,6 +49,17 @@ router.delete("/:id", verifyUser, async (ctx, next) => {
     const deletedUser = await User.findOneAndDelete(ctx.params.id);
     ctx.status = 200;
     ctx.body = { message: "Successfully deleted user", deletedUser };
+  } catch (error) {
+    return next(error);
+  }
+});
+
+//Delete all users
+router.delete("/", verifyAdmin, async (ctx, next) => {
+  try {
+    const deletedUsers = await User.deleteMany();
+    ctx.status = 200;
+    ctx.body = { message: "Successfully deleted all users", deletedUsers };
   } catch (error) {
     return next(error);
   }

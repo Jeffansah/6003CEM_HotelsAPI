@@ -40,3 +40,8 @@ export const useBookingStore = create((set) => ({
       },
     })),
 }));
+
+export const useAuthStore = create((set) => ({
+  user: null,
+  setUser: (user) => set((state) => ({ user })),
+}));
