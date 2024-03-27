@@ -13,6 +13,8 @@ import {
 } from "@/components/ui/navigation-menu";
 import Logo from "./Logo";
 import MobileNav from "./MobileNav";
+import { getCookie } from "cookies-next";
+import { Badge } from "@/components/ui/badge";
 
 const Navbar = () => {
   const navlinks = [
@@ -25,6 +27,10 @@ const Navbar = () => {
       url: "/account",
     },
   ];
+
+  const token = getCookie("access_token");
+
+  const user = JSON.parse(localStorage.getItem("userData"));
 
   return (
     <div className="px-14 py-10 max-md:px-7 max-md:py-6  border-b border-b-gray-200/30 relative z-3">
@@ -55,12 +61,26 @@ const Navbar = () => {
         </div>
         <div className="flex justify-end gap-6 items-center text-white ">
           <p className="font-light">Tel: +44 346 273 602</p>
-          <button className="border border-white bg-transparent px-6 py-3 hover:bg-white hover:text-black transition-colors duration-300">
-            Login
-          </button>
-          <button className="border border-white bg-white text-black px-6 py-3 hover:bg-transparent hover:text-white transition-colors duration-200">
-            Register
-          </button>
+          {token ? (
+            user && (
+              <Badge className="py-2 px-4 bg-transparent border border-white text-white text-sm hover:bg-white hover:text-black cursor-default">
+                Hi, {user.firstname}!
+              </Badge>
+            )
+          ) : (
+            <>
+              <Link href={"/auth?s=login"}>
+                <button className="border border-white bg-transparent px-6 py-3 hover:bg-white hover:text-black transition-colors duration-300">
+                  Login
+                </button>
+              </Link>
+              <Link href={"/auth?s=register"}>
+                <button className="border border-white bg-white text-black px-6 py-3 hover:bg-transparent hover:text-white transition-colors duration-200">
+                  Register
+                </button>
+              </Link>
+            </>
+          )}
         </div>
       </div>
       <MobileNav />

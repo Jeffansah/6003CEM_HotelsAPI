@@ -11,6 +11,7 @@ import { useAuthStore } from "@/store/store";
 import validator from "email-validator";
 import CircularProgress from "@mui/joy/CircularProgress";
 import { setCookie } from "cookies-next";
+import { useRouter } from "next/navigation";
 
 export function Register() {
   const [userData, setUserData] = useState({
@@ -23,6 +24,8 @@ export function Register() {
   const [loading, setLoading] = useState(false);
 
   const { toast } = useToast();
+
+  const router = useRouter();
 
   const setUserState = useAuthStore((state) => state.setUser);
   const userState = useAuthStore((state) => state.user);
@@ -83,17 +86,18 @@ export function Register() {
         return;
       }
 
-      setUserState(data.userDetails);
       toast({
         title: "Welcome",
         description: "You have successfully created an account",
         className: "bg-green-400 text-white",
       });
+      setUserState(data.userDetails);
       localStorage.setItem("userData", JSON.stringify(data.userDetails));
       setCookie("access_token", data.token, {
         maxAge: 1000 * 60 * 60 * 24 * 7,
       });
       setLoading(false);
+      router.push("/");
     } catch (error) {
       console.log(error);
     }

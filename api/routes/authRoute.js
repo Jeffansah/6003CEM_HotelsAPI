@@ -69,7 +69,14 @@ router.post("/login", async (ctx) => {
 
   try {
     const foundUser = await User.findOne({ username });
-    if (!foundUser) ctx.throw(401, "No user found");
+    if (!foundUser) {
+      ctx.status = 401;
+      ctx.body = {
+        message: "Please check your details and try again",
+        status: 401,
+      };
+      return;
+    }
 
     const isPasswordCorrect = await bcrypt.compare(
       userPassword,
