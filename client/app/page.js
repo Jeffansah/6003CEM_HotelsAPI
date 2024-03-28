@@ -5,6 +5,9 @@ import Image from "next/image";
 import { categories } from "@/data/categories";
 import LargeStayCard from "./components/LargeStayCard";
 import MobileCategoriesView from "./components/MobileCategoriesView";
+import { Button } from "@/components/ui/button";
+import FeaturedStayView from "./components/FeaturedStayView";
+import CTA from "./components/CTA";
 
 export default function Home() {
   return (
@@ -16,8 +19,8 @@ export default function Home() {
           <Header />
           <Booking />
         </div>
-        <div className="lg:h-screen relative max-md:bg-[#F3F3F0] max-md:pb-20 max-md:max-h-max">
-          <div className="flex flex-col items-center gap-6 max-md:gap-5 bg-[#F3F3F0] lg:h-[80%] max-md:h-full pt-44 max-md:pt-20 pb-14 max-md:px-7">
+        <div className="relative bg-[#F3F3F0] lg:pt-44 pb-40 max-md:pb-20 max-md:max-h-max">
+          <div className="flex flex-col items-center gap-6 max-md:gap-5 lg:h-full max-md:h-full  max-md:pt-20 max-md:pb-14 max-md:px-7">
             <Image
               src={"/images/resort.png"}
               width={60}
@@ -25,9 +28,7 @@ export default function Home() {
               alt="resort header icon"
               className="max-md:w-12 max-md:h-12"
             />
-            <h3 className="text-subtitle text-xs tracking-widest">
-              WELCOME TO APT
-            </h3>
+            <h3 className="text-subtitle">WELCOME TO APT</h3>
             <h1 className="text-heading/90 heading-text text-6xl max-md:text-4xl font-light max-w-5xl text-center leading-tight">
               Explore Outstanding Views all around the Globe
             </h1>
@@ -41,23 +42,46 @@ export default function Home() {
               city life, APT promises to deliver an unparalleled stay tailored
               to your desires.
             </p>
+            <div className=" flex gap-10 max-md:hidden mt-12">
+              {categories.map((category) => (
+                <LargeStayCard
+                  image={category.image}
+                  name={category.name}
+                  key={category.name}
+                  width={310}
+                  height={515}
+                />
+              ))}
+            </div>
+            <p className=" cursive-text text-tertiary text-center mt-6 text-lg">
+              Inspired by our history, surrounded by nature and designed to{" "}
+              <br />
+              offer a different experience
+            </p>
           </div>
-          <div className="absolute left-1/2 -translate-x-1/2 -bottom-16 flex gap-10 max-md:hidden">
-            {categories.map((category) => (
-              <LargeStayCard
-                image={category.image}
-                name={category.name}
-                key={category.name}
-                width={410}
-                height={615}
-              />
-            ))}
-          </div>
+
           <div className="lg:hidden grid place-items-center bg-[#F3F3F0]">
             <MobileCategoriesView />
           </div>
         </div>
-        <div className="h-screen" />
+        <div className="py-40">
+          <div className="boxed flex flex-col gap-6">
+            <p className="subtitle">ENJOY WORLD-CLASS STAY EXPERIENCE</p>
+            <div className="flex justify-between items-end">
+              <h3 className="heading-text text-heading text-5xl">
+                Premier Stays
+              </h3>
+              <Button className="bg-tertiary hover:bg-tertiarydark text-white rounded-none py-6 px-10 heading-text text-base font-light">
+                Explore more
+              </Button>
+            </div>
+            <FeaturedStayView />
+          </div>
+        </div>
+        <div className="w-screen bg-[url(/images/cta3.jpg)] bg-center bg-cover relative">
+          <div className="absolute w-full h-full bg-black/40 z-2" />
+          <CTA />
+        </div>
         <div className="h-screen" />
       </div>
     </>

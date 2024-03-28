@@ -13,6 +13,11 @@
 }
 
 @font-face {
+  font-family: "La Belle";
+  src: url("/fonts/LaBelle.ttf") format("truetype");
+}
+
+@font-face {
   font-family: "Jost";
   src: url("/fonts/Jost-Variable.ttf") format("truetype");
   font-weight: 100; /* Thin */
@@ -158,6 +163,14 @@
   .booking-btn {
     @apply rounded-none bg-transparent border border-tertiary font-heading text-lg font-light p-6 hover:bg-transparent focus:bg-transparent;
   }
+
+  .subtitle {
+    @apply text-subtitle text-xs tracking-widest;
+  }
+
+  .boxed {
+    @apply mx-auto max-w-7xl;
+  }
 }
 
 body {
@@ -166,6 +179,12 @@ body {
 
 .heading-text {
   font-family: "Marcellus", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.cursive-text {
+  font-family: "La Belle", sans-serif;
   font-weight: 400;
   font-style: normal;
 }

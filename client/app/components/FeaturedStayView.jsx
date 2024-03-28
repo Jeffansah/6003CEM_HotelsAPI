@@ -1,0 +1,25 @@
+import FeaturedStayCard from "./FeaturedStayCard";
+import _ from "lodash";
+
+const FeaturedStayView = async () => {
+  const response = await fetch("http://localhost:5000/api/hotels/featured");
+  const data = await response.json();
+
+  return (
+    <div className="flex justify-between flex-wrap w-full gap-y-14 mt-10">
+      {data &&
+        _.slice(_.shuffle(data), 0, 3).map((featured) => (
+          <FeaturedStayCard
+            key={featured._id}
+            name={featured.name}
+            extract={featured.extract}
+            description={featured.description}
+            photos={featured.photos}
+            price={featured.cheapestPrice}
+          />
+        ))}
+    </div>
+  );
+};
+
+export default FeaturedStayView;

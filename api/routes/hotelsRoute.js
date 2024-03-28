@@ -131,4 +131,15 @@ router.delete("/:id", verifyAdmin, async (ctx) => {
   }
 });
 
+//Get featured hotels
+router.get("/featured", async (ctx) => {
+  try {
+    const featuredHotels = await Hotel.find({ featured: true });
+    ctx.status = 200;
+    ctx.body = featuredHotels;
+  } catch (error) {
+    ctx.throw(400, error);
+  }
+});
+
 export default router;

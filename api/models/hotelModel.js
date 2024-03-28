@@ -22,10 +22,6 @@ const HotelSchema = new Schema({
     type: String,
     required: true,
   },
-  distance: {
-    type: String,
-    required: true,
-  },
   photos: {
     type: [String],
   },
@@ -34,11 +30,19 @@ const HotelSchema = new Schema({
     required: true,
   },
   extract: {
-    type: String,
+    type: [[String]],
     required: true,
   },
   description: {
     type: String,
+    required: true,
+  },
+  roomAmenities: {
+    type: [[String]],
+    required: true,
+  },
+  included: {
+    type: [[String]],
     required: true,
   },
   rating: {
@@ -46,17 +50,11 @@ const HotelSchema = new Schema({
     min: 0,
     max: 5,
   },
-  ratingText: {
-    type: String,
-  },
-  rooms: {
-    type: [String],
-  },
   cheapestPrice: {
     type: Number,
     required: true,
   },
-  features: {
+  featured: {
     type: Boolean,
     default: false,
   },
