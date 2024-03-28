@@ -74,7 +74,7 @@ const Navbar = () => {
           <p className="font-light">Tel: +44 346 273 602</p>
           {token !== null ? (
             user !== null && (
-              <Badge className="py-2 px-4 bg-transparent border border-white text-white text-sm hover:bg-white hover:text-black cursor-default">
+              <Badge className="py-3 px-6 bg-transparent border border-white text-white text-base hover:bg-white hover:text-black cursor-default">
                 Hi, {user.firstname}!
               </Badge>
             )

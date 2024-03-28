@@ -1,11 +1,11 @@
-export const stayCategories = [
-  {
-    name: "Hotels",
-    image: "/images/hotels.jpg",
-  },
+export const categories = [
   {
     name: "Resorts",
     image: "/images/resorts.jpg",
+  },
+  {
+    name: "Hotels",
+    image: "/images/hotels.jpg",
   },
   {
     name: "Villas",
