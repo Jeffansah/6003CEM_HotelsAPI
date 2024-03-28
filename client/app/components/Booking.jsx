@@ -23,8 +23,6 @@ const Booking = () => {
   const storeDate = useBookingStore((state) => state.booking.date);
   const setStoreDate = useBookingStore((state) => state.setDate);
 
-  console.log(storeDate);
-
   const storeDestination = useBookingStore(
     (state) => state.booking.destination
   );
@@ -43,14 +41,13 @@ const Booking = () => {
 
   const handleSubmit = () => {
     setStoreDate(date);
-    console.log(storeDate);
   };
 
   return (
-    <div className="absolute max-md:hidden flex justify-center items-center gap-10 bottom-[-50px] left-1/2 translate-x-[-50%] p-6 bg-theme">
+    <div className="absolute max-md:hidden flex justify-center items-center gap-10 bottom-[-50px] left-1/2 translate-x-[-50%] p-6 bg-theme z-10">
       <Popover>
         <PopoverTrigger asChild className="relative">
-          <Button className="rounded-none bg-transparent border border-tertiary font-heading text-lg font-light p-6 hover:bg-transparent focus:bg-transparent">
+          <Button className="rounded-none bg-transparent border border-tertiary heading-text text-base font-light p-6 hover:bg-transparent focus:bg-transparent">
             Pick a location
           </Button>
         </PopoverTrigger>
@@ -67,7 +64,7 @@ const Booking = () => {
       </Popover>
       <Popover>
         <PopoverTrigger asChild>
-          <Button className="rounded-none bg-transparent border border-tertiary font-heading text-lg font-light p-6 hover:bg-transparent focus:bg-transparent">
+          <Button className="rounded-none bg-transparent border border-tertiary heading-text text-base font-light p-6 hover:bg-transparent focus:bg-transparent">
             <CalendarIcon className="mr-2 h-4 w-4" />
             {date?.from ? (
               date.to ? (
@@ -101,7 +98,7 @@ const Booking = () => {
       </Popover>
       <Popover>
         <PopoverTrigger asChild>
-          <Button className="rounded-none bg-transparent border border-tertiary font-heading text-lg font-light p-6 hover:bg-transparent focus:bg-transparent">
+          <Button className="rounded-none bg-transparent border border-tertiary heading-text text-base font-light p-6 hover:bg-transparent focus:bg-transparent">
             Guests{" "}
             <span className="ml-6 text-xs font-body">
               {storeOptions.adult} Adult{storeOptions.adult > 1 ? "s" : ""}{" "}
@@ -202,7 +199,7 @@ const Booking = () => {
       </Popover>
       <Button
         onClick={handleSubmit}
-        className="bg-tertiary hover:bg-tertiarydark text-white rounded-none py-6 px-10 font-heading text-lg font-light"
+        className="bg-tertiary hover:bg-tertiarydark text-white rounded-none py-6 px-10 heading-text text-base font-light"
       >
         Check Availability
       </Button>

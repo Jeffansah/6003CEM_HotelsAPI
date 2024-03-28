@@ -44,7 +44,7 @@ const MobileBooking = () => {
     <div className="flex flex-col gap-6 mt-4">
       <Popover>
         <PopoverTrigger asChild>
-          <Button className="w-full rounded-none bg-transparent border border-tertiary font-heading text-lg font-light p-6 hover:bg-transparent focus:bg-transparent">
+          <Button className="w-full rounded-none bg-transparent border border-tertiary heading-text text-base font-light p-6 hover:bg-transparent focus:bg-transparent">
             Pick a location
           </Button>
         </PopoverTrigger>
@@ -61,7 +61,7 @@ const MobileBooking = () => {
       </Popover>
       <Popover>
         <PopoverTrigger asChild>
-          <Button className="w-full rounded-none bg-transparent border border-tertiary font-heading text-lg font-light p-6 hover:bg-transparent focus:bg-transparent">
+          <Button className="w-full rounded-none bg-transparent border border-tertiary heading-text text-base font-light p-6 hover:bg-transparent focus:bg-transparent">
             <CalendarIcon className="mr-2 h-4 w-4" />
             {date?.from ? (
               date.to ? (
@@ -95,7 +95,7 @@ const MobileBooking = () => {
       </Popover>
       <Popover>
         <PopoverTrigger asChild>
-          <Button className="w-full rounded-none bg-transparent border border-tertiary font-heading text-lg font-light p-6 hover:bg-transparent focus:bg-transparent">
+          <Button className="w-full rounded-none bg-transparent border border-tertiary heading-text text-base font-light p-6 hover:bg-transparent focus:bg-transparent">
             Guests{" "}
             <span className="ml-6 text-xs font-body">
               {storeOptions.adult} Adult{storeOptions.adult > 1 ? "s" : ""}{" "}
@@ -196,7 +196,7 @@ const MobileBooking = () => {
       </Popover>
       <Button
         onClick={handleSubmit}
-        className="bg-tertiary w-full hover:bg-tertiarydark text-white rounded-none py-6 font-heading text-lg font-light"
+        className="bg-tertiary w-full hover:bg-tertiarydark text-white rounded-none py-6 heading-text text-base font-light"
       >
         Check Availability
       </Button>

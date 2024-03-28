@@ -14,7 +14,7 @@ const MobileBookingView = () => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className="lg:hidden font-heading text-base bg-tertiary rounded-none px-10 py-6 mt-2 focus:bg-tertiarydark data-[state=open]:bg-tertiarydark">
+        <Button className="lg:hidden heading-text text-lg bg-tertiary rounded-none px-10 py-6 mt-2 focus:bg-tertiarydark data-[state=open]:bg-tertiarydark">
           Book Your Stay
         </Button>
       </DialogTrigger>
@@ -24,7 +24,7 @@ const MobileBookingView = () => {
             <div className="flex flex-col">
               <div className="h-36 bg-[url(/images/mobileheaderbg.jpeg)] bg-center bg-cover" />
               <div className="px-6 py-24 flex flex-col gap-6">
-                <h1 className="font-heading text-4xl text-white">
+                <h1 className="heading-text text-4xl text-white">
                   Book Your Stay
                 </h1>
                 <p className="text-base font-light leading-loose text-white/80 max-w-sm">

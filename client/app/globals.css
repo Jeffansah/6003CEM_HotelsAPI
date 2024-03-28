@@ -2,7 +2,79 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url("https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&family=Marcellus&display=swap");
+@font-face {
+  font-family: "Marcellus SC";
+  src: url("/fonts/MarcellusSC-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Marcellus";
+  src: url("/fonts/Marcellus-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Jost";
+  src: url("/fonts/Jost-Variable.ttf") format("truetype");
+  font-weight: 100; /* Thin */
+  font-style: normal; /* Regular style */
+  font-variation-settings: "wght" 100;
+}
+
+@font-face {
+  font-family: "Jost";
+  src: url("/fonts/Jost-Variable.ttf") format("truetype");
+  font-weight: 200; /* Extra-light */
+  font-style: normal; /* Regular style */
+  font-variation-settings: "wght" 200;
+}
+
+@font-face {
+  font-family: "Jost";
+  src: url("/fonts/Jost-Variable.ttf") format("truetype");
+  font-weight: 300; /* Light */
+  font-style: normal; /* Regular style */
+  font-variation-settings: "wght" 300;
+}
+
+@font-face {
+  font-family: "Jost";
+  src: url("/fonts/Jost-Variable.ttf") format("truetype");
+  font-weight: 400; /* Regular */
+  font-style: normal; /* Regular style */
+  font-variation-settings: "wght" 400;
+}
+
+@font-face {
+  font-family: "Jost";
+  src: url("/fonts/Jost-Variable.ttf") format("truetype");
+  font-weight: 500; /* Medium */
+  font-style: normal; /* Regular style */
+  font-variation-settings: "wght" 500;
+}
+
+@font-face {
+  font-family: "Jost";
+  src: url("/fonts/Jost-Variable.ttf") format("truetype");
+  font-weight: 600; /* Semi-bold */
+  font-style: normal; /* Regular style */
+  font-variation-settings: "wght" 600;
+}
+
+@font-face {
+  font-family: "Jost";
+  src: url("/fonts/Jost-Variable.ttf") format("truetype");
+  font-weight: 700; /* Bold */
+  font-style: normal; /* Regular style */
+  font-variation-settings: "wght" 700;
+}
+
+@font-face {
+  font-family: "Jost";
+  src: url("/fonts/Jost-Variable.ttf") format("truetype");
+  font-weight: 800; /* Extra-bold */
+  font-style: normal; /* Regular style */
+  font-variation-settings: "wght" 800;
+}
 
 @layer base {
   :root {
@@ -35,6 +107,9 @@
     --ring: 222.2 84% 4.9%;
 
     --radius: 0.5rem;
+
+    --heading-font: "Marcellus SC", serif;
+    --body-font: "Jost", sans-serif;
   }
 
   .dark {
@@ -83,4 +158,14 @@
   .booking-btn {
     @apply rounded-none bg-transparent border border-tertiary font-heading text-lg font-light p-6 hover:bg-transparent focus:bg-transparent;
   }
+}
+
+body {
+  font-family: "Jost", sans-serif;
+}
+
+.heading-text {
+  font-family: "Marcellus", sans-serif;
+  font-weight: 400;
+  font-style: normal;
 }

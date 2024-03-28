@@ -15,6 +15,7 @@ import Logo from "./Logo";
 import MobileNav from "./MobileNav";
 import { getCookie } from "cookies-next";
 import { Badge } from "@/components/ui/badge";
+import { useEffect, useState } from "react";
 
 const Navbar = () => {
   const navlinks = [
@@ -28,9 +29,19 @@ const Navbar = () => {
     },
   ];
 
-  const token = getCookie("access_token");
+  const [user, setUser] = useState(null);
+  const [token, setToken] = useState(null);
 
-  const user = JSON.parse(localStorage.getItem("userData"));
+  useEffect(() => {
+    const getSessionData = () => {
+      const user = JSON.parse(localStorage.getItem("userData"));
+      const token = getCookie("access_token");
+      setUser(user);
+      setToken(token);
+    };
+
+    getSessionData();
+  }, []);
 
   return (
     <div className="px-14 py-10 max-md:px-7 max-md:py-6  border-b border-b-gray-200/30 relative z-3">
@@ -61,8 +72,8 @@ const Navbar = () => {
         </div>
         <div className="flex justify-end gap-6 items-center text-white ">
           <p className="font-light">Tel: +44 346 273 602</p>
-          {token ? (
-            user && (
+          {token !== null ? (
+            user !== null && (
               <Badge className="py-2 px-4 bg-transparent border border-white text-white text-sm hover:bg-white hover:text-black cursor-default">
                 Hi, {user.firstname}!
               </Badge>
