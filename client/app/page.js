@@ -12,6 +12,7 @@ import Activities from "./components/Activities";
 import LargeStayView from "./components/LargeStayView";
 import ServicesView from "./components/ServicesView";
 import Subscribe from "./components/Subscribe";
+import Footer from "./components/Footer";
 
 export default function Home() {
   return (
@@ -119,6 +120,7 @@ export default function Home() {
             </div>
           </div>
         </div>
+        <Footer />
       </div>
     </>
   );

@@ -8,6 +8,7 @@ import bodyParser from "koa-bodyparser";
 import usersRoute from "./routes/usersRoute.js";
 import hotelsRoute from "./routes/hotelsRoute.js";
 import roomsRoute from "./routes/roomsRoute.js";
+import subscribeRoute from "./routes/subscribeRoute.js";
 
 // Load environment variables
 dotenv.config();
@@ -28,6 +29,7 @@ router.use("/api/auth", authRoute.routes());
 router.use("/api/users", usersRoute.routes());
 router.use("/api/hotels", hotelsRoute.routes());
 router.use("/api/rooms", roomsRoute.routes());
+router.use("/api/subscribe", subscribeRoute.routes());
 
 app.use(router.routes()).use(router.allowedMethods());
 
