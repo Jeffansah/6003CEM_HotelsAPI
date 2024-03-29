@@ -3,7 +3,7 @@ import React from "react";
 
 const CTA = () => {
   return (
-    <div className="boxed relative z-5 lg:py-44 pb-40 max-md:pb-20 max-md:max-h-max">
+    <div className="boxed relative z-5 lg:pt-28 lg:pb-[500px] max-md:pb-20 max-md:max-h-max">
       <div className="flex flex-col items-center gap-6 max-md:gap-5 lg:h-full max-md:h-full  max-md:pt-20 max-md:pb-14 max-md:px-7">
         <Image
           src={"/images/tropical.png"}

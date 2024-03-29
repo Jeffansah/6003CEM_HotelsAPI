@@ -44,7 +44,7 @@ const Navbar = () => {
   }, []);
 
   return (
-    <div className="px-14 py-10 max-md:px-7 max-md:py-6  border-b border-b-gray-200/30 relative z-3">
+    <div className="px-14 py-6 max-md:px-7 max-md:py-6  border-b border-b-gray-200/30 relative z-3">
       <div className="grid grid-cols-3 items-center max-md:hidden">
         <div className="flex items-center gap-6">
           {navlinks.map((link) => (

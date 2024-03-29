@@ -12,7 +12,7 @@ const FeaturedStayCard = ({ name, extract, description, photos, price }) => {
           layout="responsive"
           width={400}
           height={400}
-          className="w-full min-h-[400px] object-cover object center group-hover:scale-110 tarnsition-transform duration-500 ease-in-out"
+          className="w-full min-h-[400px] object-cover object center group-hover:scale-110 transition-transform duration-500 ease-in-out"
         />
         <p className="absolute top-4 left-4 bg-white rounded-none p-3 text-xs text-content">
           FROM £{price}

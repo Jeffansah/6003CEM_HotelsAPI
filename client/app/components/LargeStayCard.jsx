@@ -4,7 +4,7 @@ const LargeStayCard = ({ image, name, width, height }) => {
   return (
     <>
       <div
-        className={`w-[${width}px] h-[${width}px] overflow-hidden border-none rounded-none relative group`}
+        className={`flex-1 w-full h-[615px] overflow-hidden border-none rounded-none relative group`}
       >
         <Image
           src={image}

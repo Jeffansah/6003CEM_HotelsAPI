@@ -24,7 +24,7 @@ module.exports = {
         tertiary: "#b99d75",
         tertiarydark: "#a08968",
         subtitle: "#53624e",
-        content: "#333632",
+        content: "#666",
         heading: "#1a1b1a",
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
