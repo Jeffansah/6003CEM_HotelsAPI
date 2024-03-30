@@ -3,7 +3,6 @@ import User from "../models/usersModel.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
-import { verifySession } from "../utils/verifyToken.js";
 
 dotenv.config();
 
@@ -99,18 +98,6 @@ router.post("/login", async (ctx) => {
     ctx.body = { message: "Successfully signed in!", userDetails, token };
   } catch (error) {
     ctx.throw(400, error.message);
-  }
-});
-
-//Check Authenticated User
-router.get("/checkAuth", verifySession, async (ctx) => {
-  try {
-    ctx.status = 200;
-    ctx.body = { authenticated: ctx.state.isAuthenticated };
-  } catch (error) {
-    console.error("some error:", error);
-    ctx.status = error.statusCode || 500;
-    ctx.body = { error: error.message || "Internal server error" };
   }
 });
 

@@ -13,6 +13,7 @@ import LargeStayView from "./components/LargeStayView";
 import ServicesView from "./components/ServicesView";
 import Subscribe from "./components/Subscribe";
 import Footer from "./components/Footer";
+import MobileActivities from "./components/MobileAcivities";
 
 export default function Home() {
   return (
@@ -56,11 +57,13 @@ export default function Home() {
             <MobileCategoriesView />
           </div>
         </div>
-        <div className="pt-[500px] pb-40">
-          <div className="boxed flex flex-col gap-6">
-            <p className="text-subtitle">ENJOY WORLD-CLASS STAY EXPERIENCE</p>
-            <div className="flex justify-between items-end">
-              <h3 className="heading-text text-heading text-5xl">
+        <div className="pt-[500px] max-md:py-20 lg:pb-40">
+          <div className="boxed flex flex-col gap-6 max-md:items-center">
+            <p className="text-subtitle max-md:text-center text-sm">
+              ENJOY WORLD-CLASS STAY EXPERIENCE
+            </p>
+            <div className="flex max-md:flex-col max-md:items-center max-md:gap-6 lg:justify-between items-end">
+              <h3 className="heading-text text-heading text-5xl max-md:text-4xl">
                 Premier Stays
               </h3>
               <Button className="bg-tertiary hover:bg-tertiarydark text-white rounded-none py-6 px-10 heading-text text-base font-light">
@@ -70,15 +73,16 @@ export default function Home() {
             <FeaturedStayView />
           </div>
         </div>
-        <div className="w-screen bg-[url(/images/cta3.jpg)] bg-center bg-cover relative">
-          <div className="absolute w-full h-full bg-black/40 z-2" />
+        <div className="lg:w-screen max-md:min-h-max bg-[url(/images/cta3.jpg)] bg-center bg-cover relative max-md:px-7">
+          <div className="absolute w-full h-full bg-black/40 z-2 inset-0" />
           <CTA />
           <Activities />
         </div>
-        <div className="pt-[500px] pb-40">
-          <div className="relative boxed">
-            <div className="grid grid-cols-2 gap-10">
-              <div className="flex flex-col gap-4">
+        <div className="pt-[500px] max-md:pt-14 lg:pb-40 max-md:px-7 max-md:min-h-max">
+          <MobileActivities />
+          <div className="relative boxed max-md:pb-20 max-md:pt-32">
+            <div className="grid grid-cols-2 gri max-md:flex max-md:flex-col-reverse gap-10">
+              <div className="flex flex-col gap-4 max-md:mt-6">
                 <Image
                   src={"/images/servicehero1.jpg"}
                   width={600}
@@ -98,20 +102,20 @@ export default function Home() {
                   All the Essentials for a Cozy and Comfortable Stay
                 </h1>
                 <ServicesView />
-                <Button className="bg-tertiary hover:bg-tertiarydark text-white rounded-none py-6 px-10 heading-text text-base font-light max-w-max mt-8">
+                <Button className="bg-tertiary max-md:hidden hover:bg-tertiarydark text-white rounded-none py-6 px-10 heading-text text-base font-light max-w-max mt-8">
                   Book now
                 </Button>
               </div>
             </div>
           </div>
         </div>
-        <div className="bg-[url(/images/cta3.jpg)] bg-center bg-cover relative py-24">
+        <div className="bg-[url(/images/cta3.jpg)] bg-center bg-cover relative py-24 max-md:px-7">
           <div className="absolute inset-0 w-full h-full bg-black/40 z-2" />
           <div className="relative boxed">
-            <div className="grid grid-cols-2 gap-10">
+            <div className="grid grid-cols-2 max-md:grid-cols-1 gap-10">
               <div className="flex flex-col gap-6">
-                <p className="text-white">STAY TUNED WITH APT</p>
-                <h1 className="text-white heading-text text-5xl max-md:text-4xl font-light max-w-4xl leading-tight">
+                <p className="text-white text-sm">STAY TUNED WITH APT</p>
+                <h1 className="text-white heading-text text-5xl max-md:text-3xl font-light max-w-4xl leading-tight">
                   Sign up for our newsletter to receive our news, deals and
                   special offers.
                 </h1>

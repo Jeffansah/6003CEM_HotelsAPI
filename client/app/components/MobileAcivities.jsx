@@ -1,11 +1,9 @@
 import { activities } from "@/data/activities";
 import ActivityCard from "./ActivityCard";
 
-const Activities = () => {
+const MobileActivities = () => {
   return (
-    <div
-      className={`flex max-md:flex-col gap-14 lg:absolute left-1/2 lg:-translate-x-1/2  top-1/2 lg:translate-y-[40px] max-md:hidden`}
-    >
+    <div className={`flex flex-col gap-14  lg:hidden`}>
       {activities.map((activity) => (
         <ActivityCard
           image={activity.image}
@@ -19,4 +17,4 @@ const Activities = () => {
   );
 };
 
-export default Activities;
+export default MobileActivities;

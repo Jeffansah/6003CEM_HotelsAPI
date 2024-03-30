@@ -4,7 +4,7 @@ import Image from "next/image";
 
 const FeaturedStayCard = ({ name, extract, description, photos, price }) => {
   return (
-    <div className="flex flex-col w-[400px] gap-6 group">
+    <div className="flex flex-col w-[400px] max-md:w-full gap-6 max-md:gap-5 group">
       <div className="overflow-hidden rounded-none w-full h-[400px] relative cursor-pointer">
         <Image
           src={photos[0]}

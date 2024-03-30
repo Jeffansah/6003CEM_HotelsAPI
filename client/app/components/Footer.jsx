@@ -3,7 +3,7 @@ import Image from "next/image";
 const Footer = () => {
   return (
     <div className="w-screen bg-[#111111] flex flex-col ">
-      <div className="w-full grid grid-cols-4 text-white/80">
+      <div className="w-full grid grid-cols-4 max-md:grid-cols-1 text-white/80">
         <div className="flex flex-col gap-4 items-center justify-center border-[0.5px] border-gray-700/40  py-12">
           <h4 className="text-theme text-xs">ADDRESS</h4>
           <p>123 Oxford Street, London, UK</p>
@@ -57,7 +57,7 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <div className="w-full px-14 flex justify-between text-white/80 py-10">
+      <div className="w-full px-14 flex max-md:flex-col max-md:items-center max-md:gap-4  lg:justify-between text-white/80 py-10">
         <p className="text-sm">© Copyright APT. All Rights Reserved.</p>
         <div className="flex gap-4">
           <p className="hover:text-tertiary hover:cursor-pointer text-sm">
