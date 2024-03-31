@@ -2,17 +2,33 @@ import { people, bed, bath, scale } from "../../data/extractIcons.js";
 import { ChevronRightIcon } from "lucide-react";
 import Image from "next/image";
 
-const FeaturedStayCard = ({ name, extract, description, photos, price }) => {
+const FeaturedStayCard = ({
+  name,
+  extract,
+  description,
+  photos,
+  price,
+  className,
+  isSearchPage = false,
+}) => {
   return (
-    <div className="flex flex-col w-[400px] max-md:w-full gap-6 max-md:gap-5 group">
-      <div className="overflow-hidden rounded-none w-full h-[400px] relative cursor-pointer">
+    <div
+      className={`flex flex-col w-[400px] max-md:w-full gap-6 max-md:gap-5 group ${className}`}
+    >
+      <div
+        className={`overflow-hidden rounded-none w-full ${
+          isSearchPage ? "h-[200px]" : "h-[400px]"
+        } relative cursor-pointer`}
+      >
         <Image
           src={photos[0]}
           alt={name}
           layout="responsive"
           width={400}
           height={400}
-          className="w-full min-h-[400px] object-cover object center group-hover:scale-110 transition-transform duration-500 ease-in-out"
+          className={`w-full ${
+            isSearchPage ? "h-full" : "min-h-[400px]"
+          } object-cover object center group-hover:scale-110 transition-transform duration-500 ease-in-out`}
         />
         <p className="absolute top-4 left-4 bg-white rounded-none p-3 text-xs text-content">
           FROM £{price}
@@ -47,7 +63,7 @@ const FeaturedStayCard = ({ name, extract, description, photos, price }) => {
             );
         })}
       </div>
-      <p className="text-content  truncate">{description}</p>
+      <p className="text-content line-clamp-3">{description}</p>
       <div className="flex items-center gap-2">
         <button className="pb-1 border-b border-b-tertiary">
           Discover more

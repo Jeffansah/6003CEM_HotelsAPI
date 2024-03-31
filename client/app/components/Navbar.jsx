@@ -55,7 +55,7 @@ const Navbar = () => {
                     linkname={link.name}
                     className="bg-transparent p-0 text-white"
                   >
-                    {link.name}
+                    <Link href={link.url}>{link.name}</Link>
                   </NavigationMenuTrigger>
                   <NavigationMenuContent
                     className={`p-24 ${link.name === "HOME" ? "hidden" : ""}`}

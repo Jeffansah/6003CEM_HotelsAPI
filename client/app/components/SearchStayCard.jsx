@@ -2,9 +2,18 @@ import { people, bed, bath, scale } from "../../data/extractIcons.js";
 import { ChevronRightIcon } from "lucide-react";
 import Image from "next/image";
 
-const SearchStayCard = ({ name, extract, description, photos, price }) => {
+const SearchStayCard = ({
+  name,
+  extract,
+  description,
+  photos,
+  price,
+  className,
+}) => {
   return (
-    <div className="grid grid-cols-2  max-md:w-full gap-6 max-md:gap-5 group">
+    <div
+      className={`grid grid-cols-2  max-md:w-full gap-6 max-md:gap-5 group ${className}`}
+    >
       <div className="overflow-hidden rounded-none w-full h-[300px] relative">
         <Image
           src={photos[0]}

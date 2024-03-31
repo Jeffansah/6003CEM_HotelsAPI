@@ -4,6 +4,7 @@ import { useBookingStore } from "@/store/store";
 import { useEffect, useState } from "react";
 import SearchStayCard from "./SearchStayCard";
 import { Skeleton } from "@/components/ui/skeleton";
+import FeaturedStayCard from "./FeaturedStayCard";
 
 const SearchStayView = () => {
   const storeDate = useBookingStore((state) => state.booking.date);
@@ -39,22 +40,36 @@ const SearchStayView = () => {
   }, [storeDestination, storeOptions]);
 
   return (
-    <div className="flex w-[70%] flex-col gap-10">
+    <div className="flex w-[70%] max-md:w-full flex-col gap-10 max-md:gap-12">
       {searchResults ? (
         searchResults.length !== 0 ? (
           searchResults.map((result) => (
-            <SearchStayCard
-              name={result.name}
-              photos={result.photos}
-              extract={result.extract}
-              description={result.description}
-              price={result.cheapestPrice}
-            />
+            <>
+              <SearchStayCard
+                className="max-md:hidden"
+                name={result.name}
+                photos={result.photos}
+                extract={result.extract}
+                description={result.description}
+                price={result.cheapestPrice}
+              />
+              <FeaturedStayCard
+                className="lg:hidden"
+                name={result.name}
+                photos={result.photos}
+                extract={result.extract}
+                description={result.description}
+                price={result.cheapestPrice}
+                isSearchPage={true}
+              />
+            </>
           ))
         ) : (
-          <div className="w-full gap-2 py-10 flex flex-col justify-center items-center">
-            <p className="text-3xl heading-text">Sorry, no stays available</p>
-            <p className="text-content">
+          <div className="w-full gap-2 py-10 max-md:py-0 flex flex-col justify-center items-center">
+            <p className="text-3xl heading-text max-md:text-center">
+              Sorry, no stays available
+            </p>
+            <p className="text-content max-md:text-center">
               Please refine your search and try again.
             </p>
           </div>

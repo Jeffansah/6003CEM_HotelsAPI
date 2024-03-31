@@ -10,6 +10,7 @@ const FeaturedStayView = async () => {
       {data &&
         _.slice(_.shuffle(data), 0, 3).map((featured) => (
           <FeaturedStayCard
+            className={""}
             key={featured._id}
             name={featured.name}
             extract={featured.extract}

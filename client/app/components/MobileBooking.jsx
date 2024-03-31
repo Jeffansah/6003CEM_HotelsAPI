@@ -81,10 +81,12 @@ const MobileBooking = ({ isSearchPage = false }) => {
           }  rounded-none bg-transparent border  heading-text text-base font-light p-6 hover:bg-transparent focus:bg-transparent`}
         >
           <SelectValue
-            placeholder={`${
-              storeDestination !== null ? storeDestination : "Choice of Stay"
-            }  `}
-          />
+            placeholder={`
+              "Choice of Stay"
+            `}
+          >
+            {destination !== null ? destination : "Choice of Stay"}
+          </SelectValue>
         </SelectTrigger>
         <SelectContent className="border border-tertiary rounded-none min-w-max ">
           <SelectGroup className="grid grid-cols-1 group">
