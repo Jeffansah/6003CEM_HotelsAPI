@@ -13,13 +13,26 @@ import {
   MinusIcon,
   PlusIcon,
 } from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Calendar } from "@/components/ui/calendar";
 import { useState } from "react";
 import { useBookingStore } from "@/store/store";
 import { destinations } from "@/data/destinations";
 import DestinationCard from "./DestinationCard";
+import { categories } from "@/data/categories";
+import { useRouter } from "next/navigation";
 
 const Booking = () => {
+  const router = useRouter();
+
   const storeDate = useBookingStore((state) => state.booking.date);
   const setStoreDate = useBookingStore((state) => state.setDate);
 
@@ -40,30 +53,40 @@ const Booking = () => {
   });
 
   const handleSubmit = () => {
-    setStoreDate(date);
+    setStoreDate({
+      startDate: date.from,
+      endDate: date.to,
+    });
+    router.push("/stays");
   };
-
-  console.log(storeDestination);
 
   return (
     <div className="absolute max-md:hidden flex justify-center items-center gap-10 bottom-[-50px] left-1/2 translate-x-[-50%] p-6 bg-theme z-10">
-      <Popover>
-        <PopoverTrigger asChild className="relative">
-          <Button className="rounded-none bg-transparent border border-tertiary heading-text text-base font-light p-6 hover:bg-transparent focus:bg-transparent">
-            Pick a location
-          </Button>
-        </PopoverTrigger>
-        <PopoverContent className="border border-tertiary rounded-none min-w-max p-6">
-          <div className="grid grid-cols-3 gap-3">
-            {destinations.map((destination) => (
-              <DestinationCard
-                name={destination.name}
-                image={destination.image}
-              />
+      <Select onValueChange={(value) => setStoreDestination(value)}>
+        <SelectTrigger
+          homepage={true}
+          className="w-full text-white border-tertiary rounded-none bg-transparent border  heading-text text-base font-light p-6 hover:bg-transparent focus:bg-transparent"
+        >
+          <SelectValue
+            placeholder={`${
+              storeDestination !== null ? storeDestination : "Choice of Stay"
+            }  `}
+          />
+        </SelectTrigger>
+        <SelectContent className="border border-tertiary rounded-none ">
+          <SelectGroup className="grid grid-cols-1 group">
+            {categories.map((category, i) => (
+              <SelectItem
+                key={i}
+                value={category.name}
+                className={`rounded-none hover:bg-accent cursor-pointer text-white`}
+              >
+                <DestinationCard name={category.name} />
+              </SelectItem>
             ))}
-          </div>
-        </PopoverContent>
-      </Popover>
+          </SelectGroup>
+        </SelectContent>
+      </Select>
       <Popover>
         <PopoverTrigger asChild>
           <Button className="rounded-none bg-transparent border border-tertiary heading-text text-base font-light p-6 hover:bg-transparent focus:bg-transparent">

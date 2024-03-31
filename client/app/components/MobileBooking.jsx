@@ -36,13 +36,6 @@ const MobileBooking = ({ isSearchPage = false }) => {
   const [destination, setDestination] = useState(
     storeDestination !== null ? storeDestination : "Choice of Stay"
   );
-  const [adultOption, setAdultOption] = useState(1);
-  const [childrenOption, setChildrenOption] = useState(0);
-
-  const [date, setDate] = useState({
-    from: new Date(),
-    to: addDays(new Date(new Date().setDate(new Date().getDate() + 1)), 20),
-  });
 
   const storeDate = useBookingStore((state) => state.booking.date);
   const setStoreDate = useBookingStore((state) => state.setDate);
@@ -57,6 +50,16 @@ const MobileBooking = ({ isSearchPage = false }) => {
   const setChildren = useBookingStore((state) => state.setChildren);
   const setRoom = useBookingStore((state) => state.setRoom);
 
+  const [date, setDate] = useState({
+    from: storeDate.startDate ? storeDate.startDate : new Date(),
+    to: storeDate.endDate
+      ? storeDate.endDate
+      : addDays(new Date(new Date().setDate(new Date().getDate() + 1)), 20),
+  });
+
+  const [adultOption, setAdultOption] = useState(storeOptions.adult);
+  const [childrenOption, setChildrenOption] = useState(storeOptions.children);
+
   const handleSubmit = () => {
     setStoreDestination(destination);
     setAdult(adultOption);
@@ -65,7 +68,10 @@ const MobileBooking = ({ isSearchPage = false }) => {
 
   return (
     <div className={`flex flex-col gap-6 ${!isSearchPage ? "mt-4" : ""}`}>
-      <Select onValueChange={(value) => setDestination(value)}>
+      <Select
+        onValueChange={(value) => setDestination(value)}
+        value={destination}
+      >
         <SelectTrigger
           isSearchPage={isSearchPage}
           className={`w-full  ${

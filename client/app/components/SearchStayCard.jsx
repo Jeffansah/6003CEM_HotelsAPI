@@ -5,7 +5,7 @@ import Image from "next/image";
 const SearchStayCard = ({ name, extract, description, photos, price }) => {
   return (
     <div className="grid grid-cols-2  max-md:w-full gap-6 max-md:gap-5 group">
-      <div className="overflow-hidden rounded-none w-full h-[300px] relative cursor-pointer">
+      <div className="overflow-hidden rounded-none w-full h-[300px] relative">
         <Image
           src={photos[0]}
           alt={name}

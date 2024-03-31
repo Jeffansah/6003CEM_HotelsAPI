@@ -3,6 +3,7 @@
 import { useBookingStore } from "@/store/store";
 import { useEffect, useState } from "react";
 import SearchStayCard from "./SearchStayCard";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const SearchStayView = () => {
   const storeDate = useBookingStore((state) => state.booking.date);
@@ -51,10 +52,25 @@ const SearchStayView = () => {
             />
           ))
         ) : (
-          <p>No results found</p>
+          <div className="w-full gap-2 py-10 flex flex-col justify-center items-center">
+            <p className="text-3xl heading-text">Sorry, no stays available</p>
+            <p className="text-content">
+              Please refine your search and try again.
+            </p>
+          </div>
         )
       ) : (
-        <p>Loading...</p>
+        Array.from({ length: 2 }).map((_, index) => (
+          <div key={index} className="flex items-center gap-x-6">
+            <Skeleton className="h-[300px] w-[400px] rounded-none" />
+            <div className="flex flex-col gap-6">
+              <Skeleton className="h-6 w-[250px] rounded-none" />
+              <Skeleton className="h-6 w-[200px] rounded-none" />
+              <Skeleton className="h-6 w-[300px] rounded-none" />
+              <Skeleton className="h-6 w-[150px] rounded-none" />
+            </div>
+          </div>
+        ))
       )}
     </div>
   );
