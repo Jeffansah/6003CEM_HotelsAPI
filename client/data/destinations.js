@@ -1,32 +1,22 @@
 export const destinations = [
   {
     id: 1,
-    name: "Santorini",
+    name: "Hotel",
     image: "santorini1.jpg",
   },
   {
     id: 2,
-    name: "Marbella",
+    name: "Resort",
     image: "marbella1.jpg",
   },
   {
     id: 3,
-    name: "Maldives",
+    name: "Villa",
     image: "maldives1.jpg",
   },
   {
     id: 4,
-    name: "Bali",
+    name: "Cabin",
     image: "bali1.jpg",
-  },
-  {
-    id: 5,
-    name: "Hawaii",
-    image: "hawaii1.jpg",
-  },
-  {
-    id: 6,
-    name: "Cancun",
-    image: "cancun1.jpg",
   },
 ];

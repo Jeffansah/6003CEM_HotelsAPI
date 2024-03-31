@@ -30,8 +30,3 @@ const ActivityCard = ({ image, translateY, name, description }) => {
 };
 
 export default ActivityCard;
-
-//https://jacqueline.themerex.net/wp-content/uploads/2021/06/03-copyright-370x370.jpg
-//w-393h-590
-//https://cozystay.loftocean.com/island-resort/wp-content/uploads/sites/3/2023/03/img-78-1-550x825.jpg
-//	https://cozystay.loftocean.com/island-resort/wp-content/uploads/sites/3/2023/03/img-83-550x826.jpg

@@ -15,6 +15,8 @@ export const useBookingStore = create((set) => ({
       room: 1,
     },
   },
+  loading: false,
+  setLoading: (loading) => set((state) => ({ ...state, loading })),
   setDestination: (destination) =>
     set((state) => ({ booking: { ...state.booking, destination } })),
   setDate: (date) => set((state) => ({ booking: { ...state.booking, date } })),

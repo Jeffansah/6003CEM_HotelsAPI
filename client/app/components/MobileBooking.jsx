@@ -1,27 +1,54 @@
 "use client";
+
 import { Button } from "@/components/ui/button";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { addDays, format } from "date-fns";
-import { Calendar as CalendarIcon, MinusIcon, PlusIcon } from "lucide-react";
+import {
+  Calendar as CalendarIcon,
+  ChevronDownIcon,
+  MinusIcon,
+  PlusIcon,
+} from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
 import { useState } from "react";
 import { useBookingStore } from "@/store/store";
-import { destinations } from "@/data/destinations";
+import { categories } from "@/data/categories";
 import DestinationCard from "./DestinationCard";
 
-const MobileBooking = () => {
-  const storeDate = useBookingStore((state) => state.booking.date);
-  const setStoreDate = useBookingStore((state) => state.setDate);
-
-  console.log(storeDate);
-
+const MobileBooking = ({ isSearchPage = false }) => {
   const storeDestination = useBookingStore(
     (state) => state.booking.destination
   );
+
+  const [destination, setDestination] = useState(
+    storeDestination !== null ? storeDestination : "Choice of Stay"
+  );
+  const [adultOption, setAdultOption] = useState(1);
+  const [childrenOption, setChildrenOption] = useState(0);
+
+  const [date, setDate] = useState({
+    from: new Date(),
+    to: addDays(new Date(new Date().setDate(new Date().getDate() + 1)), 20),
+  });
+
+  const storeDate = useBookingStore((state) => state.booking.date);
+  const setStoreDate = useBookingStore((state) => state.setDate);
+
+  const loading = useBookingStore((state) => state.loading);
+
   const setStoreDestination = useBookingStore((state) => state.setDestination);
 
   const storeOptions = useBookingStore((state) => state.booking.options);
@@ -30,55 +57,80 @@ const MobileBooking = () => {
   const setChildren = useBookingStore((state) => state.setChildren);
   const setRoom = useBookingStore((state) => state.setRoom);
 
-  const [date, setDate] = useState({
-    from: new Date(),
-    to: addDays(new Date(new Date().setDate(new Date().getDate() + 1)), 20),
-  });
-
   const handleSubmit = () => {
-    setStoreDate(date);
-    console.log(storeDate);
+    setStoreDestination(destination);
+    setAdult(adultOption);
+    setChildren(childrenOption);
   };
 
   return (
-    <div className="flex flex-col gap-6 mt-4">
-      <Popover>
-        <PopoverTrigger asChild>
-          <Button className="w-full rounded-none bg-transparent border border-tertiary heading-text text-base font-light p-6 hover:bg-transparent focus:bg-transparent">
-            Pick a location
-          </Button>
-        </PopoverTrigger>
-        <PopoverContent className="border border-tertiary rounded-none min-w-max p-6">
-          <div className="grid grid-cols-3 gap-3">
-            {destinations.map((destination) => (
-              <DestinationCard
-                name={destination.name}
-                image={destination.image}
-              />
+    <div className={`flex flex-col gap-6 ${!isSearchPage ? "mt-4" : ""}`}>
+      <Select onValueChange={(value) => setDestination(value)}>
+        <SelectTrigger
+          isSearchPage={isSearchPage}
+          className={`w-full  ${
+            isSearchPage
+              ? "text-heading border-gray-300"
+              : "text-white border-tertiary"
+          }  rounded-none bg-transparent border  heading-text text-base font-light p-6 hover:bg-transparent focus:bg-transparent`}
+        >
+          <SelectValue
+            placeholder={`${
+              storeDestination !== null ? storeDestination : "Choice of Stay"
+            }  `}
+          />
+        </SelectTrigger>
+        <SelectContent className="border border-tertiary rounded-none min-w-max ">
+          <SelectGroup className="grid grid-cols-1 group">
+            {categories.map((category, i) => (
+              <SelectItem
+                key={i}
+                value={category.name}
+                className={`rounded-none hover:bg-accent cursor-pointer `}
+              >
+                <DestinationCard name={category.name} />
+              </SelectItem>
             ))}
-          </div>
-        </PopoverContent>
-      </Popover>
+          </SelectGroup>
+        </SelectContent>
+      </Select>
       <Popover>
         <PopoverTrigger asChild>
-          <Button className="w-full rounded-none bg-transparent border border-tertiary heading-text text-base font-light p-6 hover:bg-transparent focus:bg-transparent">
-            <CalendarIcon className="mr-2 h-4 w-4" />
-            {date?.from ? (
-              date.to ? (
-                <>
-                  {format(date.from, "LLL dd, y")} -{" "}
-                  {format(date.to, "LLL dd, y")}
-                </>
+          <div
+            className={`w-full flex items-center rounded-none bg-transparent border  heading-text text-base font-light py-3 px-6 hover:bg-transparent focus:bg-transparent ${
+              isSearchPage
+                ? "text-heading justify-between border-gray-300"
+                : "text-white  justify-center border-tertiary"
+            }`}
+          >
+            <div className="flex gap-1 items-center">
+              <CalendarIcon
+                className={`mr-2 h-4 w-4 ${
+                  isSearchPage ? "text-heading" : "text-white"
+                }`}
+              />
+              {date?.from ? (
+                date.to ? (
+                  <>
+                    {format(date.from, "LLL dd, y")} -{" "}
+                    {format(date.to, "LLL dd, y")}
+                  </>
+                ) : (
+                  format(date.from, "LLL dd, y")
+                )
               ) : (
-                format(date.from, "LLL dd, y")
-              )
-            ) : (
-              <span>Pick a date</span>
-            )}
-          </Button>
+                <span>Pick a date</span>
+              )}
+            </div>
+            <ChevronDownIcon
+              className={`h-4 w-4 opacity-50 ${!isSearchPage ? "hidden" : ""}`}
+            />
+          </div>
         </PopoverTrigger>
         <PopoverContent
-          className="w-[90vw] relative rounded-none border border-tertiary"
+          className={`${
+            isSearchPage ? "w-[580px]" : " w-[90vw]"
+          } relative rounded-none border border-tertiary`}
           align="center"
           mobilebooking={true}
         >
@@ -95,17 +147,34 @@ const MobileBooking = () => {
       </Popover>
       <Popover>
         <PopoverTrigger asChild>
-          <Button className="w-full rounded-none bg-transparent border border-tertiary heading-text text-base font-light p-6 hover:bg-transparent focus:bg-transparent">
-            Guests{" "}
-            <span className="ml-6 text-xs font-body">
-              {storeOptions.adult} Adult{storeOptions.adult > 1 ? "s" : ""}{" "}
-              {storeOptions.children} Child
-              {storeOptions.children > 1 || storeOptions.children == 0
-                ? "ren"
-                : ""}{" "}
+          <div
+            className={`w-full flex items-center rounded-none bg-transparent border heading-text text-base font-light py-3 px-6 hover:bg-transparent focus:bg-transparent ${
+              isSearchPage
+                ? "text-heading justify-between border-gray-300"
+                : "text-white  justify-center border-tertiary"
+            }`}
+          >
+            {isSearchPage ? (
+              <p>
+                {adultOption} Adult{adultOption > 1 ? "s" : ""} {childrenOption}{" "}
+                Child
+                {childrenOption > 1 || childrenOption == 0 ? "ren" : ""}{" "}
+                {storeOptions.room} Room{storeOptions.room > 1 ? "s" : ""}
+              </p>
+            ) : (
+              <p>Guests</p>
+            )}
+            <span
+              className={`ml-6 text-xs font-body ${
+                isSearchPage ? "hidden" : ""
+              }`}
+            >
+              {adultOption} Adult{adultOption > 1 ? "s" : ""} {childrenOption}{" "}
+              Child
+              {childrenOption > 1 || childrenOption == 0 ? "ren" : ""}{" "}
               {storeOptions.room} Room{storeOptions.room > 1 ? "s" : ""}
             </span>
-          </Button>
+          </div>
         </PopoverTrigger>
         <PopoverContent className="rounded-none p-6 border border-tertiary">
           <div className="flex flex-col gap-4">
@@ -114,23 +183,23 @@ const MobileBooking = () => {
               <div className="flex items-center gap-4">
                 <PlusIcon
                   className={`h-4 w-4 ${
-                    storeOptions.adult > 8
+                    adultOption > 8
                       ? "text-gray-200 cursor-not-allowed"
                       : " cursor-pointer"
                   }`}
                   onClick={() =>
-                    storeOptions.adult < 9 && setAdult(storeOptions.adult + 1)
+                    adultOption < 9 && setAdultOption(adultOption + 1)
                   }
                 />
-                <p className="tabular-nums">{storeOptions.adult}</p>
+                <p className="tabular-nums">{adultOption}</p>
                 <MinusIcon
                   className={`h-4 w-4 ${
-                    storeOptions.adult < 2
+                    adultOption < 2
                       ? "text-gray-200 cursor-not-allowed"
                       : "cursor-pointer"
                   }`}
                   onClick={() =>
-                    storeOptions.adult > 1 && setAdult(storeOptions.adult - 1)
+                    adultOption > 1 && setAdultOption(adultOption - 1)
                   }
                 />
               </div>
@@ -141,25 +210,23 @@ const MobileBooking = () => {
                 <button></button>
                 <PlusIcon
                   className={`h-4 w-4 ${
-                    storeOptions.children > 8
+                    childrenOption > 8
                       ? "text-gray-200 cursor-not-allowed"
                       : " cursor-pointer"
                   }`}
                   onClick={() => {
-                    storeOptions.children < 9 &&
-                      setChildren(storeOptions.children + 1);
+                    childrenOption < 9 && setChildrenOption(childrenOption + 1);
                   }}
                 />
-                <p className="tabular-nums">{storeOptions.children}</p>
+                <p className="tabular-nums">{childrenOption}</p>
                 <MinusIcon
                   className={`h-4 w-4 ${
-                    storeOptions.children < 1
+                    childrenOption < 1
                       ? "text-gray-200 cursor-not-allowed"
                       : " cursor-pointer"
                   }`}
                   onClick={() =>
-                    storeOptions.children > 0 &&
-                    setChildren(storeOptions.children - 1)
+                    childrenOption > 0 && setChildrenOption(childrenOption - 1)
                   }
                 />
               </div>
@@ -198,7 +265,7 @@ const MobileBooking = () => {
         onClick={handleSubmit}
         className="bg-tertiary w-full hover:bg-tertiarydark text-white rounded-none py-6 heading-text text-base font-light"
       >
-        Check Availability
+        {loading ? "Checking" : "Check Availability"}
       </Button>
     </div>
   );

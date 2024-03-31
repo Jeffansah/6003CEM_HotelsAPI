@@ -13,7 +13,7 @@ import LargeStayView from "./components/LargeStayView";
 import ServicesView from "./components/ServicesView";
 import Subscribe from "./components/Subscribe";
 import Footer from "./components/Footer";
-import MobileActivities from "./components/MobileAcivities";
+import MobileActivities from "./components/MobileActivities";
 
 export default function Home() {
   return (
@@ -46,7 +46,7 @@ export default function Home() {
               you explore our diverse portfolio of accommodations.
             </p>
             <LargeStayView />
-            <p className="w-full max-w-7xl cursive-text text-tertiary text-start text-xl">
+            <p className="w-full max-w-7xl cursive-text text-tertiary text-start max-md:text-center text-xl">
               Inspired by our history, surrounded by nature and designed to{" "}
               <br />
               offer a different experience

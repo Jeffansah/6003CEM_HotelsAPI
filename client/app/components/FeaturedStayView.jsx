@@ -6,7 +6,7 @@ const FeaturedStayView = async () => {
   const data = await response.json();
 
   return (
-    <div className="flex max-md:flex-col lg:justify-between flex-wrap w-full gap-y-14 mt-10 max-md:px-7">
+    <div className="flex max-md:flex-col lg:justify-between flex-wrap w-full gap-y-14 mt-10 max-md:px-">
       {data &&
         _.slice(_.shuffle(data), 0, 3).map((featured) => (
           <FeaturedStayCard

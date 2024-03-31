@@ -43,6 +43,8 @@ const Booking = () => {
     setStoreDate(date);
   };
 
+  console.log(storeDestination);
+
   return (
     <div className="absolute max-md:hidden flex justify-center items-center gap-10 bottom-[-50px] left-1/2 translate-x-[-50%] p-6 bg-theme z-10">
       <Popover>

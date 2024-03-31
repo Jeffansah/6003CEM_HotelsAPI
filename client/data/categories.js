@@ -1,18 +1,18 @@
 export const categories = [
   {
-    name: "Resorts",
+    name: "Resort",
     image: "/images/resorts.jpg",
   },
   {
-    name: "Hotels",
+    name: "Hotel",
     image: "/images/hotels.jpg",
   },
   {
-    name: "Villas",
+    name: "Villa",
     image: "/images/villas.jpg",
   },
   {
-    name: "Cabins",
+    name: "Cabin",
     image: "/images/cabins.jpg",
   },
 ];

@@ -6,7 +6,6 @@ import Image from "next/image";
 import { useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import validator from "email-validator";
-import { set } from "lodash";
 
 const Subscribe = () => {
   const [checked, setChecked] = useState(false);

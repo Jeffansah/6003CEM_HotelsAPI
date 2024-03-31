@@ -19,14 +19,30 @@ router.post("/", verifyAdmin, async (ctx) => {
 
 // Get all hotels
 router.get("/", verifyAdmin, async (ctx) => {
-  const { min, max, ...others } = ctx.query;
   try {
-    const hotels = await Hotel.find({
-      ...others,
-      cheapestPrice: { $gte: min || 1, $lte: max || 999 },
-    }).limit(parseInt(ctx.query.limit));
+    const hotels = await Hotel.find();
     ctx.status = 200;
     ctx.body = hotels;
+  } catch (error) {
+    ctx.throw(400, error);
+  }
+});
+
+router.get("/search", async (ctx) => {
+  let { type, guests } = ctx.query;
+  guests = parseInt(guests);
+  try {
+    const hotels = await Hotel.find({
+      type,
+      guestLimit: { $gte: guests },
+    });
+    ctx.status = 200;
+    if (hotels.length === 0) {
+      ctx.body = { message: "No hotels found", hotels: [] };
+      return;
+    }
+
+    ctx.body = { message: "No hotels found", hotels };
   } catch (error) {
     ctx.throw(400, error);
   }
