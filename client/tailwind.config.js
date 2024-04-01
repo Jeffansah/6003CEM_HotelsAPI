@@ -23,6 +23,7 @@ module.exports = {
         theme: "#53624E",
         tertiary: "#b99d75",
         tertiarydark: "#a08968",
+        tertiarylight: "#FAF7F4",
         subtitle: "#53624e",
         content: "#666",
         heading: "#1a1b1a",

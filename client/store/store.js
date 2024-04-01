@@ -1,3 +1,4 @@
+import { addDays } from "date-fns";
 import { create } from "zustand";
 
 export const useBookingStore = create((set) => ({
@@ -5,8 +6,11 @@ export const useBookingStore = create((set) => ({
     destination: null,
     date: [
       {
-        startDate: null,
-        endDate: null,
+        startDate: new Date(),
+        endDate: addDays(
+          new Date(new Date().setDate(new Date().getDate() + 1)),
+          20
+        ),
       },
     ],
     options: {

@@ -1,6 +1,7 @@
 import { people, bed, bath, scale } from "../../data/extractIcons.js";
 import { ChevronRightIcon } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link.js";
 
 const SearchStayCard = ({
   name,
@@ -9,6 +10,8 @@ const SearchStayCard = ({
   photos,
   price,
   className,
+  type,
+  id,
 }) => {
   return (
     <div
@@ -63,12 +66,15 @@ const SearchStayCard = ({
           })}
         </div>
         <p className="text-content line-clamp-4 max-w-xs">{description}</p>
-        <div className="flex items-center gap-2">
+        <Link
+          href={`/stays/${type}/${id}`}
+          className="flex items-center gap-2 max-w-max"
+        >
           <button className="pb-1 border-b border-b-tertiary">
             Discover more
           </button>
           <ChevronRightIcon className="text-content w-3 h-3" />
-        </div>
+        </Link>
       </div>
     </div>
   );

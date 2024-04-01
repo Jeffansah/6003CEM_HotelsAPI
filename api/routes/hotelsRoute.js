@@ -67,58 +67,15 @@ router.put("/:id", verifyAdmin, async (ctx) => {
 router.get("/search/:id", async (ctx) => {
   try {
     const foundHotel = await Hotel.findById(ctx.params.id);
+    if (!foundHotel) {
+      ctx.throw(400, { message: "Hotel not found" });
+      return;
+    }
+
     ctx.status = 200;
     ctx.body = foundHotel;
   } catch (error) {
-    ctx.throw(400, "Cannot find hotel");
-  }
-});
-
-// Find Number of hotels by City
-router.get("/countByCity", async (ctx) => {
-  const cities = ctx.query.cities.split(",");
-  try {
-    const list = await Promise.all(
-      cities.map((city) => Hotel.countDocuments({ city }))
-    );
-    ctx.status = 200;
-    ctx.body = list;
-  } catch (error) {
-    ctx.throw(400, error);
-  }
-});
-
-// Find Number of hotels by Type
-router.get("/countByType", async (ctx) => {
-  try {
-    const hotelCount = await Hotel.countDocuments({ type: "Hotel" });
-    const apartmentCount = await Hotel.countDocuments({ type: "Apartment" });
-    const resortCount = await Hotel.countDocuments({ type: "Resort" });
-    const villaCount = await Hotel.countDocuments({ type: "Villa" });
-    const cabinCount = await Hotel.countDocuments({ type: "Cabin" });
-    const cottageCount = await Hotel.countDocuments({ type: "Cottage" });
-    const vacationhomeCount = await Hotel.countDocuments({
-      type: "Vacation home",
-    });
-    const guesthouseCount = await Hotel.countDocuments({ type: "Guest house" });
-    const motelCount = await Hotel.countDocuments({ type: "Motel" });
-
-    const data = [
-      { type: "hotel", count: hotelCount },
-      { type: "apartment", count: apartmentCount },
-      { type: "resort", count: resortCount },
-      { type: "villa", count: villaCount },
-      { type: "cabin", count: cabinCount },
-      { type: "cottage", count: cottageCount },
-      { type: "vacation home", count: vacationhomeCount },
-      { type: "guest house", count: guesthouseCount },
-      { type: "motel", count: motelCount },
-    ];
-
-    ctx.status = 200;
-    ctx.body = data;
-  } catch (error) {
-    ctx.throw(400, error.message);
+    ctx.throw(400, { message: "Hotel not found", error });
   }
 });
 
@@ -153,6 +110,24 @@ router.get("/featured", async (ctx) => {
     const featuredHotels = await Hotel.find({ featured: true });
     ctx.status = 200;
     ctx.body = featuredHotels;
+  } catch (error) {
+    ctx.throw(400, error);
+  }
+});
+
+//Get similar hotels
+router.get("/similar", async (ctx) => {
+  let { guests, id } = ctx.query;
+  guests = parseInt(guests);
+  try {
+    const similarHotels = await Hotel.find({
+      guestLimit: guests,
+    }).limit(3);
+    const filteredHotels = similarHotels.filter(
+      (hotel) => hotel._id.toString() !== id
+    );
+    ctx.status = 200;
+    ctx.body = { message: "hotels found!", filteredHotels };
   } catch (error) {
     ctx.throw(400, error);
   }

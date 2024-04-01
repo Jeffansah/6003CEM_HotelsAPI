@@ -14,6 +14,7 @@ import ServicesView from "./components/ServicesView";
 import Subscribe from "./components/Subscribe";
 import Footer from "./components/Footer";
 import MobileActivities from "./components/MobileActivities";
+import SubscribeView from "./components/SubscribeView";
 
 export default function Home() {
   return (

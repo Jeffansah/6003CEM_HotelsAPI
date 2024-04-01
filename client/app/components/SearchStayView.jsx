@@ -52,6 +52,8 @@ const SearchStayView = () => {
                 extract={result.extract}
                 description={result.description}
                 price={result.cheapestPrice}
+                type={result.type}
+                id={result._id}
               />
               <FeaturedStayCard
                 className="lg:hidden"
@@ -61,6 +63,8 @@ const SearchStayView = () => {
                 description={result.description}
                 price={result.cheapestPrice}
                 isSearchPage={true}
+                type={result.type}
+                id={result._id}
               />
             </>
           ))

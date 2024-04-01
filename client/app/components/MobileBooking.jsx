@@ -27,8 +27,18 @@ import { useState } from "react";
 import { useBookingStore } from "@/store/store";
 import { categories } from "@/data/categories";
 import DestinationCard from "./DestinationCard";
+import { useRouter } from "next/navigation";
+import { useToast } from "@/components/ui/use-toast";
+import { CircularProgress } from "@mui/joy";
 
-const MobileBooking = ({ isSearchPage = false }) => {
+const MobileBooking = ({
+  isSearchPage = false,
+  isBookingPage = false,
+  id,
+  price,
+  guestLimit,
+  name,
+}) => {
   const storeDestination = useBookingStore(
     (state) => state.booking.destination
   );
@@ -51,57 +61,88 @@ const MobileBooking = ({ isSearchPage = false }) => {
   const setRoom = useBookingStore((state) => state.setRoom);
 
   const [date, setDate] = useState({
-    from: storeDate.startDate ? storeDate.startDate : new Date(),
-    to: storeDate.endDate
-      ? storeDate.endDate
-      : addDays(new Date(new Date().setDate(new Date().getDate() + 1)), 20),
+    from: new Date(),
+    to: addDays(new Date(new Date().setDate(new Date().getDate() + 1)), 20),
   });
 
   const [adultOption, setAdultOption] = useState(storeOptions.adult);
   const [childrenOption, setChildrenOption] = useState(storeOptions.children);
 
+  const router = useRouter();
+
   const handleSubmit = () => {
     setStoreDestination(destination);
     setAdult(adultOption);
     setChildren(childrenOption);
+    setStoreDate(date);
+  };
+
+  const { toast } = useToast();
+
+  const bookNow = () => {
+    if (adultOption + childrenOption > guestLimit) {
+      toast({
+        title: "Uh oh!",
+        description: `You have exceeded the guest limit`,
+        className: "bg-red-400 text-white",
+      });
+      return;
+    }
+    if (
+      new Date(date.from).setHours(0, 0, 0, 0) < new Date().setHours(0, 0, 0, 0)
+    ) {
+      toast({
+        title: "Uh oh!",
+        description: `You can't book a date in the past`,
+        className: "bg-red-400 text-white",
+      });
+      return;
+    }
+    router.push(`/confirm-booking/${id}`);
   };
 
   return (
     <div className={`flex flex-col gap-6 ${!isSearchPage ? "mt-4" : ""}`}>
-      <Select
-        onValueChange={(value) => setDestination(value)}
-        value={destination}
-      >
-        <SelectTrigger
-          isSearchPage={isSearchPage}
-          className={`w-full  ${
-            isSearchPage
-              ? "text-heading border-gray-300"
-              : "text-white border-tertiary"
-          }  rounded-none bg-transparent border  heading-text text-base font-light p-6 hover:bg-transparent focus:bg-transparent`}
+      {isBookingPage ? (
+        <div className="w-full flex items-center justify-start border-gray-300 text-heading rounded-none bg-transparent border heading-text text-base font-light px-6 py-3">
+          <p>{name}</p>
+        </div>
+      ) : (
+        <Select
+          onValueChange={(value) => setDestination(value)}
+          value={destination}
         >
-          <SelectValue
-            placeholder={`
+          <SelectTrigger
+            isSearchPage={isSearchPage}
+            className={`w-full  ${
+              isSearchPage
+                ? "text-heading border-gray-300"
+                : "text-white border-tertiary"
+            }  rounded-none bg-transparent border  heading-text text-base font-light p-6 hover:bg-transparent focus:bg-transparent`}
+          >
+            <SelectValue
+              placeholder={`
               "Choice of Stay"
             `}
-          >
-            {destination !== null ? destination : "Choice of Stay"}
-          </SelectValue>
-        </SelectTrigger>
-        <SelectContent className="border border-tertiary rounded-none min-w-max ">
-          <SelectGroup className="grid grid-cols-1 group">
-            {categories.map((category, i) => (
-              <SelectItem
-                key={i}
-                value={category.name}
-                className={`rounded-none hover:bg-accent cursor-pointer `}
-              >
-                <DestinationCard name={category.name} />
-              </SelectItem>
-            ))}
-          </SelectGroup>
-        </SelectContent>
-      </Select>
+            >
+              {destination !== null ? destination : "Choice of Stay"}
+            </SelectValue>
+          </SelectTrigger>
+          <SelectContent className="border border-tertiary rounded-none min-w-max ">
+            <SelectGroup className="grid grid-cols-1 group">
+              {categories.map((category, i) => (
+                <SelectItem
+                  key={i}
+                  value={category.name}
+                  className={`rounded-none hover:bg-accent cursor-pointer `}
+                >
+                  <DestinationCard name={category.name} />
+                </SelectItem>
+              ))}
+            </SelectGroup>
+          </SelectContent>
+        </Select>
+      )}
       <Popover>
         <PopoverTrigger asChild>
           <div
@@ -269,11 +310,32 @@ const MobileBooking = ({ isSearchPage = false }) => {
           </div>
         </PopoverContent>
       </Popover>
+      {isBookingPage && (
+        <div className="flex justify-between text-2xl border-t border-t-gray-200 pt-10 mt-6 mb-3">
+          <h3 className="heading-text">Total Cost</h3>
+          <p className="flex items-center">
+            £{" "}
+            {Math.ceil(
+              storeOptions.room *
+                ((date?.to - date?.from) / (1000 * 60 * 60 * 24)) *
+                price
+            ) || <CircularProgress variant="plain" size="sm" color="neutral" />}
+          </p>
+        </div>
+      )}
       <Button
-        onClick={handleSubmit}
-        className="bg-tertiary w-full hover:bg-tertiarydark text-white rounded-none py-6 heading-text text-base font-light"
+        onClick={isBookingPage ? bookNow : handleSubmit}
+        className={`${
+          isBookingPage
+            ? "bg-heading hover:bg-tertiary"
+            : "bg-tertiary hover:bg-tertiarydark"
+        } w-full  text-white rounded-none py-6 heading-text text-base font-light`}
       >
-        {loading ? "Checking" : "Check Availability"}
+        {loading
+          ? "Checking"
+          : isBookingPage
+          ? "Book Your Stay Now"
+          : "Check Availability"}
       </Button>
     </div>
   );

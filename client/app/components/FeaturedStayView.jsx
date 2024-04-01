@@ -17,6 +17,8 @@ const FeaturedStayView = async () => {
             description={featured.description}
             photos={featured.photos}
             price={featured.cheapestPrice}
+            type={featured.type}
+            id={featured._id}
           />
         ))}
     </div>
