@@ -60,9 +60,11 @@ const MobileBooking = ({
   const setChildren = useBookingStore((state) => state.setChildren);
   const setRoom = useBookingStore((state) => state.setRoom);
 
+  const setTotalPrice = useBookingStore((state) => state.setTotalPrice);
+
   const [date, setDate] = useState({
-    from: new Date(),
-    to: addDays(new Date(new Date().setDate(new Date().getDate() + 1)), 20),
+    from: storeDate[0].startDate,
+    to: storeDate[0].endDate,
   });
 
   const [adultOption, setAdultOption] = useState(storeOptions.adult);
@@ -70,15 +72,60 @@ const MobileBooking = ({
 
   const router = useRouter();
 
+  //Check Availability
   const handleSubmit = () => {
     setStoreDestination(destination);
     setAdult(adultOption);
     setChildren(childrenOption);
-    setStoreDate(date);
+    setStoreDate([
+      {
+        startDate: date.from,
+        endDate: date.to,
+      },
+    ]);
+    setTotalPrice(
+      storeOptions.room *
+        ((date.to - date.from) / (1000 * 60 * 60 * 24)) *
+        price
+    );
   };
 
   const { toast } = useToast();
 
+  const [bookNowLoading, setBookNowLoading] = useState(false);
+
+  //Add Stay to Cart
+  const addToCart = async (stayId, dates, rooms) => {
+    try {
+      setBookNowLoading(true);
+      const response = await fetch("http://localhost:5000/api/cart", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ stayId, dates, rooms }),
+      });
+
+      const data = await response.json();
+
+      if (data.isCartFilled) {
+        toast({
+          title: "Uh oh!",
+          description: data.message,
+          className: "bg-red-400 text-white",
+        });
+        setBookNowLoading(false);
+        return;
+      }
+
+      setBookNowLoading(false);
+      router.push(`/confirm-booking`);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  //Continue to Cart
   const bookNow = () => {
     if (adultOption + childrenOption > guestLimit) {
       toast({
@@ -98,7 +145,17 @@ const MobileBooking = ({
       });
       return;
     }
-    router.push(`/confirm-booking/${id}`);
+    setStoreDate([
+      {
+        startDate: date.from,
+        endDate: date.to,
+      },
+    ]);
+    addToCart(
+      id,
+      [{ startDate: date.from, endDate: date.to }],
+      storeOptions.room
+    );
   };
 
   return (
@@ -283,7 +340,6 @@ const MobileBooking = ({
             <div className="flex justify-between items-center">
               <p className="font-heading text-lg">Rooms</p>
               <div className="flex items-center gap-4">
-                <button></button>
                 <PlusIcon
                   className={`h-4 w-4 ${
                     storeOptions.room > 3
@@ -311,14 +367,16 @@ const MobileBooking = ({
         </PopoverContent>
       </Popover>
       {isBookingPage && (
-        <div className="flex justify-between text-2xl border-t border-t-gray-200 pt-10 mt-6 mb-3">
+        <div className="flex justify-between text-2xl max-md:text-xl border-t border-t-gray-200 pt-10 mt-6 mb-3">
           <h3 className="heading-text">Total Cost</h3>
           <p className="flex items-center">
             £{" "}
-            {Math.ceil(
-              storeOptions.room *
+            {new Intl.NumberFormat("en-US").format(
+              (
+                storeOptions.room *
                 ((date?.to - date?.from) / (1000 * 60 * 60 * 24)) *
                 price
+              ).toFixed(2)
             ) || <CircularProgress variant="plain" size="sm" color="neutral" />}
           </p>
         </div>
@@ -331,11 +389,17 @@ const MobileBooking = ({
             : "bg-tertiary hover:bg-tertiarydark"
         } w-full  text-white rounded-none py-6 heading-text text-base font-light`}
       >
-        {loading
-          ? "Checking"
-          : isBookingPage
-          ? "Book Your Stay Now"
-          : "Check Availability"}
+        {loading ? (
+          "Checking"
+        ) : isBookingPage ? (
+          bookNowLoading ? (
+            <CircularProgress variant="plain" size="sm" color="neutral" />
+          ) : (
+            "Book Your Stay Now"
+          )
+        ) : (
+          "Check Availability"
+        )}
       </Button>
     </div>
   );

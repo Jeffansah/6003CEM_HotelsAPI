@@ -29,6 +29,7 @@ import { destinations } from "@/data/destinations";
 import DestinationCard from "./DestinationCard";
 import { categories } from "@/data/categories";
 import { useRouter } from "next/navigation";
+import { useToast } from "@/components/ui/use-toast";
 
 const Booking = () => {
   const router = useRouter();
@@ -48,15 +49,28 @@ const Booking = () => {
   const setRoom = useBookingStore((state) => state.setRoom);
 
   const [date, setDate] = useState({
-    from: new Date(),
-    to: addDays(new Date(new Date().setDate(new Date().getDate() + 1)), 20),
+    from: storeDate[0].startDate,
+    to: storeDate[0].endDate,
   });
 
+  const { toast } = useToast();
+
   const handleSubmit = () => {
-    setStoreDate({
-      startDate: date.from,
-      endDate: date.to,
-    });
+    if (storeDestination === null) {
+      toast({
+        title: "Uh oh!",
+        description: `Please select your choice of stay.`,
+        className: "bg-red-400 text-white border-none",
+      });
+      return;
+    }
+
+    setStoreDate([
+      {
+        startDate: date.from,
+        endDate: date.to,
+      },
+    ]);
     router.push("/stays");
   };
 

@@ -18,21 +18,43 @@ const page = async ({ params }) => {
 
   return (
     <div className="overflow-x-hidden relative">
-      <div className="h-[600px] max-md:h-[400px] bg-[url(/images/auth3.jpg)] bg-no-repeat bg-center bg-cover relative flex flex-col">
+      <div className="h-[600px] max-md:h-[400px] bg-[url(/images/auth3.jpg)] bg-no-repeat bg-center bg-cover relative flex flex-col ">
         <div className="absolute w-full h-full bg-black/40 z-2" />
         <Navbar />
-        <div className="flex flex-grow items-center justify-center">
+        <div className="flex flex-grow items-center justify-center px-7">
           <p className="heading-text max-md:text-center max-md:text-5xl text-white text-7xl z-5 relative">
             {data !== null && data.name}
           </p>
         </div>
       </div>
-      <div className="boxed flex flex-col py-24 max-md:pt-10 max-md:pb-20">
-        {data !== null && <SingleStayResult data={...data}/>}
-        <div className="flex flex-col border-t mt-20 pt-10 gap-10 border-t-gray-300">
+      <div className="boxed flex flex-col py-24 max-md:pt-16 max-md:pb-20">
+        {data !== null && (
+          <SingleStayResult
+            data={data}
+            _id={data._id}
+            name={data.name}
+            type={data.type}
+            city={data.city}
+            country={data.country}
+            address={data.address}
+            photos={data.photos}
+            title={data.title}
+            extract={data.extract}
+            description={data.description}
+            roomAmenities={data.roomAmenities}
+            included={data.included}
+            rating={data.rating}
+            cheapestPrice={data.cheapestPrice}
+            featured={data.featured}
+            guestLimit={data.guestLimit}
+          />
+        )}
+        <div className="flex flex-col border-t mt-20 pt-10 gap-10 border-t-gray-300 max-md:px-7">
           <h3 className="heading-text text-2xl">Similar Stays</h3>
           <div className="flex gap-6">
-            {data && <SimilarStaysView guestLimit={data.guestLimit} id={data._id} />}
+            {data && (
+              <SimilarStaysView guestLimit={data.guestLimit} id={data._id} />
+            )}
           </div>
         </div>
       </div>

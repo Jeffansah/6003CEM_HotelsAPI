@@ -6,37 +6,35 @@ import SimilarStaysView from "./SimilarStaysView.jsx";
 import ConfirmBooking from "./ConfirmBooking.jsx";
 
 const SingleStayResult = ({
-  data: {
-    _id,
-    name,
-    type,
-    city,
-    country,
-    address,
-    photos,
-    title,
-    extract,
-    description,
-    roomAmenities,
-    included,
-    rating,
-    cheapestPrice,
-    featured,
-    guestLimit,
-  },
+  _id,
+  name,
+  type,
+  city,
+  country,
+  address,
+  photos,
+  title,
+  extract,
+  description,
+  roomAmenities,
+  included,
+  rating,
+  cheapestPrice,
+  featured,
+  guestLimit,
   data,
 }) => {
   const titleArray = title.split("/");
 
   return (
-    <div className="flex  text-heading text-lg max-md:flex-col-reverse max-md:items-center w-full boxed gap-20 max-md:gap-14 max-md:px-7">
-      <div className="w-[65%] flex flex-col max-md:w-full gap-14">
+    <div className="flex max-md:flex-col  text-heading text-lg max-md:items-center w-full boxed gap-20 max-md:gap-14 max-md:px-7">
+      <div className="w-[65%] flex flex-col max-md:w-full gap-14 max-md:gap-10">
         <div className="flex flex-col gap-6">
-          <h3 className="heading-text  text-4xl">{name}</h3>
-          <p className="text-content">
+          <h3 className="heading-text  text-4xl max-md:text-3xl">{name}</h3>
+          <p className="text-content max-md:text-sm">
             {address}, {city}, {country}
           </p>
-          <div className="flex gap-6 items-center text-base">
+          <div className="flex gap-6 items-center text-base max-md:max-w-xs max-md:flex-wrap max-md:text-sm">
             {extract[0].map((item) => {
               if (item.includes("m2"))
                 return (
@@ -85,9 +83,9 @@ const SingleStayResult = ({
         <p className="leading-10">{description}</p>
         <div className="flex flex-col gap-6">
           <h3 className="heading-text text-2xl">Features</h3>
-          <div className="flex gap-4">
+          <div className="flex gap-4  max-md:flex-col">
             {titleArray.map((item) => (
-              <div className="px-10 py-4 bg-tertiarylight heading-text">
+              <div className="px-10 max-md:px-5 py-4  bg-tertiarylight heading-text max-md:w-full">
                 {item.trim()}
               </div>
             ))}
@@ -95,7 +93,7 @@ const SingleStayResult = ({
         </div>
         <div className="flex flex-col gap-6">
           <h3 className="heading-text text-2xl">Room Amenities</h3>
-          <div className="grid grid-cols-2 gap-6">
+          <div className="grid grid-cols-2 max-md:grid-cols-1 gap-6">
             {roomAmenities[0].map((item) => (
               <div className="flex gap-4 items-center">
                 <Image

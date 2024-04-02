@@ -75,8 +75,8 @@ const FeaturedStayCard = ({
         <button className="pb-1 border-b border-b-tertiary">
           Discover more
         </button>
+        <ChevronRightIcon className="text-content w-3 h-3" />
       </Link>
-      <ChevronRightIcon className="text-content w-3 h-3" />
     </div>
   );
 };

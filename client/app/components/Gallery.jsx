@@ -18,7 +18,7 @@ const Gallery = ({ photos, name }) => {
               alt={name}
               width={400}
               height={400}
-              className="object-center object-cover h-[250px] full"
+              className="object-center object-cover h-[250px] max-md:h-[120px] full"
             />
           </DialogTrigger>
           <DialogContent className="p-0">
@@ -27,7 +27,7 @@ const Gallery = ({ photos, name }) => {
               alt={name}
               width={1000}
               height={800}
-              className="object-center object-cover h-[80vh] w-[80vw]"
+              className="object-center object-cover h-[80vh] max-md:h-[30vh] w-[80vw] max-md:w-full"
             />
           </DialogContent>
         </Dialog>

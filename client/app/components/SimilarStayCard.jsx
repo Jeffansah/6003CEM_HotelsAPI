@@ -3,11 +3,17 @@ import Image from "next/image";
 import Link from "next/link";
 
 const SimilarStayCard = ({
-  data: { name, photos, _id, description, cheapestPrice, title, type },
+  name,
+  photos,
+  _id,
+  description,
+  cheapestPrice,
+  title,
+  type,
 }) => {
   return (
     <div
-      className={`w-[400px] h-[400px] max-md:w-full gap-6 max-md:gap-5 group relative overflow-hidden text-white cursor-pointer`}
+      className={`w-[400px] h-[400px] max-md:w-full max-md:h-[350px] max-md:flex-1 gap-6 max-md:gap-5 group relative overflow-hidden text-white cursor-pointer`}
     >
       <div className="absolute w-full h-full bg-black/20 z-2 z-[2] inset-0 transition group-hover:bg-theme/90 duration-500 ease-in-out" />
 
@@ -21,7 +27,9 @@ const SimilarStayCard = ({
         £{cheapestPrice} / NIGHT
       </p>
       <div className="absolute z-[3] flex flex-col gap-4 left-7 bottom-8 transition group-hover:opacity-0 duration-500 ease-in-out">
-        <h3 className="heading-text text-3xl">{name}</h3>
+        <h3 className="heading-text text-3xl max-md:text-2xl max-w-xs">
+          {name}
+        </h3>
         <p className="text-sm">{title}</p>
       </div>
       <div className="absolute z-[3] bottom-0 left-7 group-hover:flex flex-col gap-6 opacity-0 transition group-hover:opacity-100 group-hover:-translate-y-7 duration-500 ease-in-out">

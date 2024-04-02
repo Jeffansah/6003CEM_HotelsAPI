@@ -9,7 +9,7 @@ export const useBookingStore = create((set) => ({
         startDate: new Date(),
         endDate: addDays(
           new Date(new Date().setDate(new Date().getDate() + 1)),
-          20
+          0
         ),
       },
     ],
@@ -20,6 +20,10 @@ export const useBookingStore = create((set) => ({
     },
   },
   loading: false,
+  totalPrice: null,
+  cartIsFilled: false,
+  setCartIsFilled: (cartIsFilled) =>
+    set((state) => ({ ...state, cartIsFilled })),
   setLoading: (loading) => set((state) => ({ ...state, loading })),
   setDestination: (destination) =>
     set((state) => ({ booking: { ...state.booking, destination } })),

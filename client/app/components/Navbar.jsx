@@ -16,6 +16,8 @@ import MobileNav from "./MobileNav";
 import { getCookie } from "cookies-next";
 import { Badge } from "@/components/ui/badge";
 import { useEffect, useState } from "react";
+import { ShoppingCartIcon } from "lucide-react";
+import { CartIcon } from "./CartIcon";
 
 const Navbar = () => {
   const navlinks = [
@@ -70,7 +72,8 @@ const Navbar = () => {
         <div className="flex justify-center">
           <Logo />
         </div>
-        <div className="flex justify-end gap-6 items-center text-white ">
+        <div className="flex justify-end gap-10 items-center text-white ">
+          <CartIcon />
           <p className="font-light">Tel: +44 346 273 602</p>
           {token !== null ? (
             user !== null && (

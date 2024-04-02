@@ -9,6 +9,7 @@ import usersRoute from "./routes/usersRoute.js";
 import hotelsRoute from "./routes/hotelsRoute.js";
 import roomsRoute from "./routes/roomsRoute.js";
 import subscribeRoute from "./routes/subscribeRoute.js";
+import cartRoute from "./routes/cartRoute.js";
 
 // Load environment variables
 dotenv.config();
@@ -30,6 +31,7 @@ router.use("/api/users", usersRoute.routes());
 router.use("/api/hotels", hotelsRoute.routes());
 router.use("/api/rooms", roomsRoute.routes());
 router.use("/api/subscribe", subscribeRoute.routes());
+router.use("/api/cart", cartRoute.routes());
 
 app.use(router.routes()).use(router.allowedMethods());
 

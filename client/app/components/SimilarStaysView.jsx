@@ -13,9 +13,21 @@ const SimilarStaysView = async ({ guestLimit, id }) => {
   }
 
   return (
-    <div className="">
+    <div className="flex max-md:flex-col gap-6">
       {data !== null &&
-        data.filteredHotels.map((data) => <SimilarStayCard data={...data}/>)}
+        data.filteredHotels.map((data) => (
+          <div className="max-md:w-[87vw]">
+            <SimilarStayCard
+              name={data.name}
+              photos={data.photos}
+              _id={data._id}
+              description={data.description}
+              cheapestPrice={data.cheapestPrice}
+              title={data.title}
+              type={data.type}
+            />
+          </div>
+        ))}
     </div>
   );
 };
