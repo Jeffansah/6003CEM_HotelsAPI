@@ -8,7 +8,9 @@ import Footer from "../components/Footer";
 const page = async () => {
   let data = null;
   try {
-    const res = await fetch("http://localhost:5000/api/cart");
+    const res = await fetch("http://localhost:5000/api/cart", {
+      cache: "no-store",
+    });
     data = await res.json();
   } catch (error) {
     console.log(error);
@@ -25,7 +27,7 @@ const page = async () => {
           </p>
         </div>
       </div>
-      <div className="flex gap-14 py-20 boxed">
+      <div className="flex gap-14 pt-20 pb-56 boxed">
         {data && <CartStayView data={data} />}
         {data && <Checkout data={data} />}
       </div>

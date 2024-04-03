@@ -13,7 +13,7 @@ const CartStayProduct = ({ name, price, photos, rooms, dates }) => {
           alt={name}
         />
         <div className="flex flex-col">
-          <p className="font-normal">{name}</p>
+          <p className="font-normal max-w-[200px]">{name}</p>
           <p className="text-content text-xs">
             <span className="text-heading">Date: </span>
             {format(new Date(dates[0].startDate), "dd MMM yy")} -{" "}

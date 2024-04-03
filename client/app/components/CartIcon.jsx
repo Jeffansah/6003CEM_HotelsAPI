@@ -14,7 +14,9 @@ export const CartIcon = () => {
   useEffect(() => {
     const getCart = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/cart");
+        const res = await fetch("http://localhost:5000/api/cart", {
+          cache: "no-store",
+        });
         const data = await res.json();
         setShowNumber(data.cart.length > 0);
         console.log(showNumber);

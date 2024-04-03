@@ -43,6 +43,11 @@ router.post("/", async (ctx) => {
 router.get("/", async (ctx) => {
   try {
     const cart = await Cart.find();
+    if (cart.length === 0) {
+      ctx.status = 200;
+      ctx.body = { message: "Cart is empty!", cart };
+      return;
+    }
     try {
       const hotel = await Hotel.findById(cart[0].stayId);
       ctx.status = 200;
@@ -59,8 +64,16 @@ router.get("/", async (ctx) => {
 router.delete("/:id", async (ctx) => {
   try {
     const deletedCart = await Cart.findByIdAndDelete(ctx.params.id);
-    ctx.status = 200;
-    ctx.body = { message: "Successfully deleted item from cart!", deletedCart };
+    try {
+      const findCartItem = await Cart.findById(ctx.params.id);
+      if (!findCartItem) {
+        ctx.status = 200;
+        ctx.body = { message: "Cart is empty!", deleted: true };
+        return;
+      }
+    } catch (error) {
+      ctx.throw(400, error);
+    }
   } catch (error) {
     ctx.throw(400, error);
   }

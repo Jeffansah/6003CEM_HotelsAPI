@@ -14,8 +14,6 @@ const CartStayView = ({ data }) => {
   const cartIsFilled = useBookingStore((state) => state.cartIsFilled);
   const setCartIsFilled = useBookingStore((state) => state.setCartIsFilled);
 
-  //   const [isCartFilled, setIsCartFilled] = useState(cartIsFilled);
-
   useEffect(() => {
     setCartIsFilled(data.cart.length > 0);
   }, []);

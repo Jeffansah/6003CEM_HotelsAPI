@@ -60,8 +60,6 @@ const MobileBooking = ({
   const setChildren = useBookingStore((state) => state.setChildren);
   const setRoom = useBookingStore((state) => state.setRoom);
 
-  const setTotalPrice = useBookingStore((state) => state.setTotalPrice);
-
   const [date, setDate] = useState({
     from: storeDate[0].startDate,
     to: storeDate[0].endDate,
@@ -83,11 +81,6 @@ const MobileBooking = ({
         endDate: date.to,
       },
     ]);
-    setTotalPrice(
-      storeOptions.room *
-        ((date.to - date.from) / (1000 * 60 * 60 * 24)) *
-        price
-    );
   };
 
   const { toast } = useToast();
@@ -99,6 +92,7 @@ const MobileBooking = ({
     try {
       setBookNowLoading(true);
       const response = await fetch("http://localhost:5000/api/cart", {
+        cache: "no-store",
         method: "POST",
         headers: {
           "Content-Type": "application/json",
