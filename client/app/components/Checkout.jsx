@@ -1,7 +1,6 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import getStripe from "@/lib/getStripe";
 import { useBookingStore } from "@/store/store";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -11,6 +10,7 @@ const Checkout = ({}) => {
   const [data, setData] = useState(null);
   const router = useRouter();
   const [nights, setNights] = useState(1);
+  const [userId, setUserId] = useState(null);
 
   const handleCheckout = async () => {
     try {
@@ -20,6 +20,9 @@ const Checkout = ({}) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
+          userId,
+          stayId: data.cart[0].stayId,
+          dates: data.cart[0].dates,
           price: data.hotel.cheapestPrice,
           name: data.hotel.name,
           rooms: data.cart[0].rooms,
@@ -41,6 +44,8 @@ const Checkout = ({}) => {
         });
         const data = await res.json();
         setData(data);
+        const userData = JSON.parse(localStorage.getItem("userData"));
+        setUserId(userData._id);
         setNights(
           (new Date(data.cart[0].dates[0].endDate).setHours(0, 0, 0, 0) -
             new Date(data.cart[0].dates[0].startDate).setHours(0, 0, 0, 0)) /

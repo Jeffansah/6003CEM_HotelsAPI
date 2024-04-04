@@ -55,7 +55,7 @@ const Navbar = () => {
                 <NavigationMenuItem>
                   <NavigationMenuTrigger
                     linkname={link.name}
-                    className="bg-transparent p-0 text-white"
+                    className="bg-transparent p-0 text-white max-h-max"
                   >
                     <Link href={link.url}>{link.name}</Link>
                   </NavigationMenuTrigger>
