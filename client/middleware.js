@@ -5,14 +5,13 @@ import * as jose from "jose";
 export async function middleware(req) {
   try {
     const res = NextResponse.next();
+    const pathname = req.nextUrl.pathname;
     const accessToken = getCookie("access_token", { res, req });
 
-    if (!accessToken) {
+    if (!accessToken && !pathname.includes("/auth")) {
       return NextResponse.redirect(new URL("/auth?s=login", req.url));
     }
 
-    const pathname = req.nextUrl.pathname;
-    console.log(pathname);
     if (pathname.includes("/auth")) {
       return NextResponse.redirect(new URL("/", req.url));
     }
@@ -39,5 +38,5 @@ export async function middleware(req) {
 }
 
 export const config = {
-  matcher: ["/about", "/auth"],
+  matcher: [],
 };
