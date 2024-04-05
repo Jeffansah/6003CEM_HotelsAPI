@@ -1,9 +1,14 @@
-import React from 'react'
+import React from "react";
+import UsersView from "../components/UsersView";
+
+export const dynamic = "force-dynamic";
 
 const page = () => {
   return (
-    <div>page</div>
-  )
-}
+    <main className="flex flex-1 flex-col gap-4 md:gap-8">
+      <UsersView />
+    </main>
+  );
+};
 
-export default page
+export default page;

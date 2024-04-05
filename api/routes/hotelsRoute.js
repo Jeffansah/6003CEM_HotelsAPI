@@ -6,7 +6,7 @@ import { verifyAdmin } from "../utils/verifyToken.js";
 const router = new Router();
 
 // Add a new hotel
-router.post("/", verifyAdmin, async (ctx) => {
+router.post("/", async (ctx) => {
   const newHotel = new Hotel(ctx.request.body);
   try {
     const savedHotel = await newHotel.save();
@@ -18,7 +18,7 @@ router.post("/", verifyAdmin, async (ctx) => {
 });
 
 // Get all hotels
-router.get("/", verifyAdmin, async (ctx) => {
+router.get("/", async (ctx) => {
   try {
     const hotels = await Hotel.find();
     ctx.status = 200;
@@ -49,7 +49,7 @@ router.get("/search", async (ctx) => {
 });
 
 // Update a hotel
-router.put("/:id", verifyAdmin, async (ctx) => {
+router.put("/:id", async (ctx) => {
   try {
     const updatedHotel = await Hotel.findByIdAndUpdate(
       ctx.params.id,
@@ -94,7 +94,7 @@ router.get("/room/:id", async (ctx) => {
 });
 
 // Delete a hotel
-router.delete("/:id", verifyAdmin, async (ctx) => {
+router.delete("/:id", async (ctx) => {
   try {
     const deletedHotel = await Hotel.findOneAndDelete(ctx.params.id);
     ctx.status = 200;

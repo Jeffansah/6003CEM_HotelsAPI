@@ -57,7 +57,7 @@ const DashboardLatestTransactions = async () => {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {latestTransactions &&
+              {latestTransactions ? (
                 latestTransactions.map((transac) => (
                   <TableRow>
                     <TableCell>
@@ -75,7 +75,10 @@ const DashboardLatestTransactions = async () => {
                       £{transac.totalAmount}
                     </TableCell>
                   </TableRow>
-                ))}
+                ))
+              ) : (
+                <CircularProgress color="neutral" variant="soft" size="sm" />
+              )}
             </TableBody>
           </Table>
         </CardContent>
