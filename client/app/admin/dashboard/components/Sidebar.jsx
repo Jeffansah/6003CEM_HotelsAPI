@@ -22,7 +22,7 @@ import SidebarLinks from "./SidebarLinks";
 
 const Sidebar = () => {
   return (
-    <div className="hidden border-r bg-muted/40 md:block w-[20%]">
+    <div className="hidden border-r bg-background md:block w-[20%]">
       <div className="flex h-full max-h-screen flex-col gap-2">
         <div className="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
           <Link
@@ -37,22 +37,6 @@ const Sidebar = () => {
           </Button>
         </div>
         <SidebarLinks />
-        <div className="mt-auto p-4">
-          <Card>
-            <CardHeader className="p-2 pt-0 md:p-4">
-              <CardTitle>Upgrade to Pro</CardTitle>
-              <CardDescription>
-                Unlock all features and get unlimited access to our support
-                team.
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="p-2 pt-0 md:p-4 md:pt-0">
-              <Button size="sm" className="w-full">
-                Upgrade
-              </Button>
-            </CardContent>
-          </Card>
-        </div>
       </div>
     </div>
   );
