@@ -11,7 +11,6 @@ import { usePathname } from "next/navigation";
 
 const SidebarLinks = () => {
   const pathname = usePathname();
-  console.log(pathname);
 
   return (
     <div className="flex-1 mt-4">

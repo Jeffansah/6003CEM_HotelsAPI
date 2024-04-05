@@ -3,6 +3,8 @@ import Stripe from "stripe";
 import { verifyToken } from "../utils/verifyToken.js";
 import Cart from "../models/cartModel.js";
 import Booking from "../models/bookingModel.js";
+import User from "../models/usersModel.js";
+import Hotel from "../models/hotelModel.js";
 
 const router = new Router();
 
@@ -75,33 +77,62 @@ router.post("/webhook", async (ctx) => {
     if (event.type === "checkout.session.completed") {
       const { id, amount_total, metadata } = event.data.object;
 
-      const booking = {
-        stripeId: id,
-        userId: metadata?.userId || "",
-        stayId: metadata?.stayId || "",
-        rooms: parseInt(metadata?.rooms) || 0,
-        nights: parseInt(metadata?.nights) || 0,
-        dates:
-          [
-            {
-              startDate: new Date(metadata?.startDate) || new Date(),
-              endDate: new Date(metadata?.endDate) || new Date(),
-            },
-          ] || [],
-        totalAmount: amount_total ? (amount_total / 100).toString() : "0",
-      };
-
       try {
-        const newBooking = await Booking(booking);
+        const { firstname, lastname, email } = await User.findById(
+          metadata?.userId
+        );
+
         try {
-          const savedBooking = await newBooking.save();
-          ctx.status = 200;
-          ctx.body = { message: "Booking successfully saved!", savedBooking };
+          const { name, cheapestPrice, photos } = await Hotel.findById(
+            metadata?.stayId
+          );
+
+          const booking = {
+            stripeId: id,
+            user: {
+              userId: metadata?.userId || "",
+              userFirstName: firstname || "",
+              userLastName: lastname || "",
+              userEmail: email || "",
+            },
+            stay: {
+              stayId: metadata?.stayId || "",
+              stayName: name || "",
+              stayPrice: parseInt(cheapestPrice) || 0,
+              stayPhotos: photos || [],
+            },
+            rooms: parseInt(metadata?.rooms) || 0,
+            nights: parseInt(metadata?.nights) || 0,
+            dates:
+              [
+                {
+                  startDate: new Date(metadata?.startDate) || new Date(),
+                  endDate: new Date(metadata?.endDate) || new Date(),
+                },
+              ] || [],
+            totalAmount: amount_total ? (amount_total / 100).toString() : "0",
+          };
+
+          try {
+            const newBooking = await Booking(booking);
+            try {
+              const savedBooking = await newBooking.save();
+              ctx.status = 200;
+              ctx.body = {
+                message: "Booking successfully saved!",
+                savedBooking,
+              };
+            } catch (err) {
+              ctx.throw(400, err.message);
+            }
+          } catch (err) {
+            ctx.throw(400, err.message);
+          }
         } catch (err) {
-          ctx.throw(400, err.message);
+          console.log(err);
         }
       } catch (err) {
-        ctx.throw(400, err.message);
+        console.log(err);
       }
     }
   } catch (err) {

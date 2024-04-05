@@ -51,7 +51,12 @@ router.post("/register", async (ctx) => {
       process.env.JWT_KEY
     );
 
-    ctx.cookies.set("access_token", token, { httpOnly: true });
+    ctx.cookies.set("access_token", token, {
+      httpOnly: true,
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
+
+    console.log(ctx.cookies.get("access_token"));
 
     const { password, isAdmin, ...userDetails } = newUser.toObject();
 
@@ -90,7 +95,10 @@ router.post("/login", async (ctx) => {
 
     ctx.cookies.set("access_token", token, {
       httpOnly: true,
+      maxAge: 7 * 24 * 60 * 60 * 1000,
     });
+
+    console.log(ctx.cookies.get("access_token"));
 
     const { password, ...userDetails } = foundUser.toObject();
 

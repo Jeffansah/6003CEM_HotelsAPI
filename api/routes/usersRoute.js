@@ -5,7 +5,7 @@ import { verifyAdmin, verifyUser } from "../utils/verifyToken.js";
 const router = new Router();
 
 // Get all users
-router.get("/", verifyAdmin, async (ctx, next) => {
+router.get("/", async (ctx, next) => {
   try {
     const users = await User.find();
     ctx.status = 200;

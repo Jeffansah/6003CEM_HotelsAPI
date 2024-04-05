@@ -41,6 +41,8 @@ const Navbar = () => {
       const token = getCookie("access_token");
       setUser(user);
       setToken(token);
+
+      console.log(user, token);
     };
 
     getSessionData();
@@ -72,7 +74,7 @@ const Navbar = () => {
             HOME
           </Link>
           {navlinks.map((link) => (
-            <NavigationMenu>
+            <NavigationMenu className={`${!token ? "hidden" : ""}`}>
               <NavigationMenuList>
                 <NavigationMenuItem>
                   <NavigationMenuTrigger

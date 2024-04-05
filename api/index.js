@@ -11,6 +11,7 @@ import roomsRoute from "./routes/roomsRoute.js";
 import subscribeRoute from "./routes/subscribeRoute.js";
 import cartRoute from "./routes/cartRoute.js";
 import stripeRoute from "./routes/stripeRoute.js";
+import bookingRoute from "./routes/bookingRoute.js";
 
 // Load environment variables
 dotenv.config();
@@ -34,6 +35,7 @@ router.use("/api/rooms", roomsRoute.routes());
 router.use("/api/subscribe", subscribeRoute.routes());
 router.use("/api/cart", cartRoute.routes());
 router.use("/api/stripe", stripeRoute.routes());
+router.use("/api/bookings", bookingRoute.routes());
 
 app.use(router.routes()).use(router.allowedMethods());
 

@@ -16,6 +16,10 @@ export async function middleware(req) {
       return NextResponse.next();
     }
 
+    if (!accessToken && pathname.includes("/admin/dashboard")) {
+      return NextResponse.redirect(new URL("/", req.url));
+    }
+
     if (pathname.includes("/auth")) {
       return NextResponse.redirect(new URL("/", req.url));
     }
@@ -33,7 +37,7 @@ export async function middleware(req) {
 
     console.log(payload);
 
-    if (pathname.includes && !payload.isAdmin) {
+    if (pathname.includes("/admin/dashboard") && !payload.isAdmin) {
       return NextResponse.redirect(new URL("/", req.url));
     }
 
