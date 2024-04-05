@@ -41,7 +41,6 @@ const Navbar = () => {
       const token = getCookie("access_token");
       setUser(user);
       setToken(token);
-      console.log(token);
     };
 
     getSessionData();
@@ -118,6 +117,11 @@ const Navbar = () => {
               </NavigationMenuList>
             </NavigationMenu>
           ))}
+          {user !== null && user.isAdmin && (
+            <Link href={"/admin/dashboard"}>
+              <p className="text-white ml-3">GO TO DASHBOARD</p>
+            </Link>
+          )}
         </div>
         <div className="flex justify-center">
           <Logo />
@@ -128,7 +132,7 @@ const Navbar = () => {
           {token ? (
             user !== null && (
               <Badge className="py-3 px-6 bg-transparent border border-white text-white text-base hover:bg-white rounded-none hover:text-black cursor-default">
-                Hi, {user.firstname}!
+                Hi, {user.isAdmin ? "Admin" : user.firstname}!
               </Badge>
             )
           ) : (

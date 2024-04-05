@@ -92,7 +92,7 @@ router.post("/login", async (ctx) => {
       httpOnly: true,
     });
 
-    const { password, isAdmin, ...userDetails } = foundUser.toObject();
+    const { password, ...userDetails } = foundUser.toObject();
 
     ctx.status = 200;
     ctx.body = { message: "Successfully signed in!", userDetails, token };

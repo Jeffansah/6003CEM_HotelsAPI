@@ -8,8 +8,12 @@ export async function middleware(req) {
     const pathname = req.nextUrl.pathname;
     const accessToken = getCookie("access_token", { res, req });
 
-    if (!accessToken && !pathname.includes("/auth")) {
+    if (!accessToken && pathname.includes("/confirm-booking")) {
       return NextResponse.redirect(new URL("/auth?s=login", req.url));
+    }
+
+    if (!accessToken && pathname.includes("/auth")) {
+      return NextResponse.next();
     }
 
     if (pathname.includes("/auth")) {
@@ -27,6 +31,12 @@ export async function middleware(req) {
     const secretKey = new TextEncoder().encode(secret);
     const { payload } = await jose.jwtVerify(accessToken, secretKey);
 
+    console.log(payload);
+
+    if (pathname.includes && !payload.isAdmin) {
+      return NextResponse.redirect(new URL("/", req.url));
+    }
+
     if (payload.id) {
       return NextResponse.next();
     }
@@ -38,5 +48,5 @@ export async function middleware(req) {
 }
 
 export const config = {
-  matcher: [],
+  matcher: ["/admin/dashboard", "/auth"],
 };
