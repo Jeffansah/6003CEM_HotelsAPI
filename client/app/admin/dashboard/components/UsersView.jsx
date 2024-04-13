@@ -34,7 +34,9 @@ import Link from "next/link";
 const UsersView = async () => {
   let data;
   try {
-    const response = await fetch("http://localhost:5000/api/users");
+    const response = await fetch(
+      "https://misty-plum-hare.cyclic.app/api/users"
+    );
     data = await response.json();
   } catch (error) {
     console.error(error);

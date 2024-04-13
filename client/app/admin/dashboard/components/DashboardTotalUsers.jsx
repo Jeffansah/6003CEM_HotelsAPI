@@ -7,7 +7,9 @@ const DashboardTotalUsers = async () => {
   let totalUsers;
 
   try {
-    const response = await fetch("http://localhost:5000/api/users/");
+    const response = await fetch(
+      "https://misty-plum-hare.cyclic.app/api/users/"
+    );
     data = await response.json();
     totalUsers = data.users.length;
   } catch (error) {

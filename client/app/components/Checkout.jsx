@@ -14,21 +14,24 @@ const Checkout = ({}) => {
 
   const handleCheckout = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/stripe/payment", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          userId,
-          stayId: data.cart[0].stayId,
-          dates: data.cart[0].dates,
-          price: data.hotel.cheapestPrice,
-          name: data.hotel.name,
-          rooms: data.cart[0].rooms,
-          nights,
-        }),
-      });
+      const response = await fetch(
+        "https://misty-plum-hare.cyclic.app/api/stripe/payment",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            userId,
+            stayId: data.cart[0].stayId,
+            dates: data.cart[0].dates,
+            price: data.hotel.cheapestPrice,
+            name: data.hotel.name,
+            rooms: data.cart[0].rooms,
+            nights,
+          }),
+        }
+      );
       const session = await response.json();
       router.push(session.sessionUrl);
     } catch (error) {
@@ -39,7 +42,7 @@ const Checkout = ({}) => {
   useEffect(() => {
     const getCart = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/cart", {
+        const res = await fetch("https://misty-plum-hare.cyclic.app/api/cart", {
           cache: "no-store",
         });
         const data = await res.json();

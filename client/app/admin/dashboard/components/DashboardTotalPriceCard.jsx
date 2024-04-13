@@ -8,7 +8,9 @@ const DashboardTotalPriceCard = async () => {
   let totalPrice;
 
   try {
-    const response = await fetch("http://localhost:5000/api/bookings/");
+    const response = await fetch(
+      "https://misty-plum-hare.cyclic.app/api/bookings/"
+    );
     data = await response.json();
     totalPrice = data.reduce((accumulator, currentItem) => {
       return accumulator + currentItem.totalAmount;

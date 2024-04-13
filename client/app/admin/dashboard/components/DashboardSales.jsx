@@ -7,7 +7,9 @@ const DashboardSales = async () => {
   let totalSales;
 
   try {
-    const response = await fetch("http://localhost:5000/api/bookings/");
+    const response = await fetch(
+      "https://misty-plum-hare.cyclic.app/api/bookings/"
+    );
     data = await response.json();
     totalSales = data.length;
   } catch (error) {

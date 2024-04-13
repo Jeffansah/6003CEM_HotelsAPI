@@ -50,13 +50,16 @@ export function Login() {
         return;
       }
 
-      const response = await fetch("http://localhost:5000/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(loginDetails),
-      });
+      const response = await fetch(
+        "https://misty-plum-hare.cyclic.app/api/auth/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(loginDetails),
+        }
+      );
 
       const data = await response.json();
 

@@ -14,10 +14,13 @@ const ClearCartButton = ({ id }) => {
   const handleClick = async () => {
     try {
       setLoading(true);
-      const res = await fetch(`http://localhost:5000/api/cart/${id}`, {
-        method: "DELETE",
-        cache: "no-store",
-      });
+      const res = await fetch(
+        `https://misty-plum-hare.cyclic.app/api/cart/${id}`,
+        {
+          method: "DELETE",
+          cache: "no-store",
+        }
+      );
       const data = await res.json();
       if (data.deleted) {
         setCartIsFilled(false);

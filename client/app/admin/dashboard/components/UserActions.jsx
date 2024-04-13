@@ -23,9 +23,12 @@ const UserActions = ({ user }) => {
 
   const deleteOneUser = async (id) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/users/${id}`, {
-        method: "DELETE",
-      });
+      const response = await fetch(
+        `https://misty-plum-hare.cyclic.app/api/users/${id}`,
+        {
+          method: "DELETE",
+        }
+      );
       const data = await response.json();
       router.refresh();
     } catch (error) {

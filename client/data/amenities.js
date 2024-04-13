@@ -44,7 +44,7 @@ export const amenities = [
     icon: "/images/paw.png",
   },
   {
-    name: "In-room Refridgerator",
+    name: "In-room Refrigerator",
     icon: "/images/fridge.png",
   },
 ];
